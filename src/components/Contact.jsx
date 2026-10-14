@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail, Phone, MapPin, Send, Copy, Check, ExternalLink, MessageSquare, Sparkles, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Copy, Check, ExternalLink, ArrowUpRight, MessageSquare, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { Github, Linkedin } from "./Icons";
 import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
@@ -9,7 +9,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "Discussing Project / Engineering Opportunity",
+    subject: "Discussing Software Engineering / Team Lead Role",
     message: ""
   });
   const [copiedType, setCopiedType] = useState(null);
@@ -28,13 +28,12 @@ export default function Contact() {
 
     soundManager.playSuccess();
     confetti({
-      particleCount: 120,
-      spread: 80,
+      particleCount: 110,
+      spread: 75,
       origin: { y: 0.6 }
     });
     setSubmitted(true);
 
-    // Also offer mailto fallback
     const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
       `From: ${formData.name} (${formData.email})\n\nMessage:\n${formData.message}`
     )}`;
@@ -49,172 +48,172 @@ export default function Contact() {
   return (
     <section id="contact" className="contact-section">
       <div className="section-container">
-        {/* Section Header */}
-        <div className="section-header-centered">
-          <span className="section-subtitle">GET IN TOUCH</span>
+        {/* Editorial Section Header */}
+        <div className="section-header-centered reveal-on-scroll">
+          <span className="section-label-chip">COMMUNICATION & INQUIRIES</span>
           <h2 className="section-main-title">
-            Let's Build Something <span className="gradient-text-shimmer">Extraordinary</span>
+            Initiate a Conversation with <span className="text-cobalt">Sham R</span>
           </h2>
           <p className="section-desc">
-            Open to discussing high-impact engineering leadership roles, full-stack architectures, Android systems, or innovative client projects.
+            Available for software team leadership roles, full-stack architectural consulting, native Android systems, or strategic client software projects.
           </p>
         </div>
 
-        <div className="contact-grid">
-          {/* Left Column: Direct Coordinates Card */}
-          <div className="contact-info-card">
-            <h3 className="contact-info-title">Direct Coordinates</h3>
-            <p className="contact-info-para">
-              Whether you're looking for a Software Team Leader, a seasoned full-stack developer, or need technical consulting on web and mobile ecosystems, feel free to reach out directly.
+        <div className="contact-editorial-grid">
+          {/* Left Column: Direct Coordinates Dossier */}
+          <div className="contact-coordinates-card reveal-on-scroll delay-100">
+            <h3 className="coords-card-title">Direct Contact Coordinates</h3>
+            <p className="coords-card-intro">
+              Direct access channels for recruiters, engineering leaders, and enterprise clients. Responses delivered within 24 hours.
             </p>
 
-            <div className="contact-methods-stack">
+            <div className="coords-methods-list">
               {/* Email */}
               <div
-                className="contact-method-item"
+                className="coord-item-row"
                 onMouseEnter={() => soundManager.playHover()}
               >
-                <div className="method-icon-box">
-                  <Mail size={18} className="accent-cyan" />
+                <div className="coord-icon-box">
+                  <Mail size={18} className="text-cobalt" />
                 </div>
-                <div className="method-text-area">
-                  <span className="method-label">Direct Email</span>
-                  <a href={`mailto:${personalInfo.email}`} className="method-value">
+                <div className="coord-data">
+                  <span className="coord-label">Direct Email</span>
+                  <a href={`mailto:${personalInfo.email}`} className="coord-value">
                     {personalInfo.email}
                   </a>
                 </div>
                 <button
-                  className="copy-btn"
+                  className="btn-copy-action"
                   onClick={() => copyToClipboard(personalInfo.email, "email")}
                   title="Copy email to clipboard"
                 >
                   {copiedType === "email" ? (
-                    <span className="copied-text"><Check size={14} /> Copied</span>
+                    <span className="copied-badge"><Check size={14} /> Copied</span>
                   ) : (
-                    <Copy size={14} />
+                    <Copy size={15} />
                   )}
                 </button>
               </div>
 
               {/* Phone */}
               <div
-                className="contact-method-item"
+                className="coord-item-row"
                 onMouseEnter={() => soundManager.playHover()}
               >
-                <div className="method-icon-box">
-                  <Phone size={18} className="accent-purple" />
+                <div className="coord-icon-box">
+                  <Phone size={18} className="text-terracotta" />
                 </div>
-                <div className="method-text-area">
-                  <span className="method-label">Direct Phone / WhatsApp</span>
-                  <a href={`tel:${personalInfo.phone}`} className="method-value">
+                <div className="coord-data">
+                  <span className="coord-label">Direct Telephone / WhatsApp</span>
+                  <a href={`tel:${personalInfo.phone}`} className="coord-value">
                     {personalInfo.phone}
                   </a>
                 </div>
                 <button
-                  className="copy-btn"
+                  className="btn-copy-action"
                   onClick={() => copyToClipboard(personalInfo.phone, "phone")}
                   title="Copy phone to clipboard"
                 >
                   {copiedType === "phone" ? (
-                    <span className="copied-text"><Check size={14} /> Copied</span>
+                    <span className="copied-badge"><Check size={14} /> Copied</span>
                   ) : (
-                    <Copy size={14} />
+                    <Copy size={15} />
                   )}
                 </button>
               </div>
 
               {/* Location */}
-              <div className="contact-method-item">
-                <div className="method-icon-box">
-                  <MapPin size={18} className="accent-green" />
+              <div className="coord-item-row">
+                <div className="coord-icon-box">
+                  <MapPin size={18} className="text-forest" />
                 </div>
-                <div className="method-text-area">
-                  <span className="method-label">Current Base</span>
-                  <span className="method-value">{personalInfo.location}</span>
+                <div className="coord-data">
+                  <span className="coord-label">Primary Headquarters</span>
+                  <span className="coord-value">{personalInfo.location}</span>
                 </div>
               </div>
             </div>
 
-            {/* Social Channels */}
-            <div className="contact-social-section">
-              <span className="social-heading">Verified Profiles:</span>
-              <div className="social-pill-row">
+            {/* Social channels */}
+            <div className="coords-social-group">
+              <span className="coords-subhead">Verified Online Presence:</span>
+              <div className="coords-pills-row">
                 <a
                   href={personalInfo.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-profile-pill"
+                  className="presence-pill"
                   onClick={() => soundManager.playHover()}
                 >
                   <Github size={16} />
                   <span>GitHub Profile</span>
-                  <ExternalLink size={12} />
+                  <ArrowUpRight size={13} />
                 </a>
 
                 <a
                   href={personalInfo.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-profile-pill"
+                  className="presence-pill"
                   onClick={() => soundManager.playHover()}
                 >
                   <Linkedin size={16} />
                   <span>LinkedIn Profile</span>
-                  <ExternalLink size={12} />
+                  <ArrowUpRight size={13} />
                 </a>
               </div>
             </div>
 
-            {/* Quick Status Pill */}
-            <div className="availability-card">
-              <div className="avail-pulse-beacon"></div>
+            {/* Availability Badge */}
+            <div className="availability-white-pill">
+              <span className="avail-pulse-beacon-dark"></span>
               <div>
-                <strong>Current Status:</strong>
-                <p>Available for technical leadership discussions & strategic client contracts.</p>
+                <strong>Current Engagement Status:</strong>
+                <p>Open to discussions regarding engineering leadership, team direction & high-scale software delivery.</p>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Interactive Message Hub */}
-          <div className="contact-form-card">
+          {/* Right Column: Clean White Message Form */}
+          <div className="contact-form-white-card reveal-on-scroll delay-200">
             {submitted ? (
-              <div className="form-success-state">
-                <div className="success-icon-wrapper">
-                  <CheckCircle2 size={48} className="accent-cyan" />
+              <div className="form-success-editorial">
+                <div className="success-mark-wrap">
+                  <CheckCircle2 size={44} className="text-forest" />
                 </div>
-                <h3>Message Ready & Client Triggered!</h3>
+                <h3>Message Initialized</h3>
                 <p>
-                  Thank you for reaching out, <strong>{formData.name}</strong>. Your native email client has been prepared with your message, and Sham will respond promptly.
+                  Thank you, <strong>{formData.name}</strong>. Your native email client has been opened with your inquiry pre-filled, and Sham will respond promptly.
                 </p>
                 <button
-                  className="reset-form-btn"
+                  className="btn-reset-editorial-form"
                   onClick={() => {
                     soundManager.playClick();
                     setSubmitted(false);
                     setFormData({ name: "", email: "", subject: "Discussing Project", message: "" });
                   }}
                 >
-                  Send Another Message
+                  Send Another Inquiry
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="contact-form">
-                <h3 className="form-heading">Send a Direct Message</h3>
+              <form onSubmit={handleSubmit} className="editorial-form">
+                <h3 className="form-main-heading">Dispatch a Direct Inquiry</h3>
 
-                {/* Quick Subject Selector */}
-                <div className="quick-subject-container">
-                  <span className="quick-label">Quick Intent:</span>
-                  <div className="quick-subject-chips">
+                {/* Quick Subject Selectors */}
+                <div className="subject-selector-area">
+                  <span className="subject-picker-label">Select Purpose:</span>
+                  <div className="subject-pills-flex">
                     {[
-                      "Tech Lead / Full Stack Role",
-                      "Discuss Project Collaboration",
-                      "Schedule Technical Interview",
-                      "General Inquiries"
+                      "Engineering Leadership Role",
+                      "Full-Stack Web Architecture",
+                      "Android Application Delivery",
+                      "Technical Project Consulting"
                     ].map((subj, i) => (
                       <button
                         key={i}
                         type="button"
-                        className={`chip-btn ${formData.subject === subj ? "active" : ""}`}
+                        className={`subject-chip ${formData.subject === subj ? "active" : ""}`}
                         onClick={() => handleQuickSubject(subj)}
                       >
                         {subj}
@@ -223,31 +222,31 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="form-row">
-                  <div className="form-field">
-                    <label>Your Name *</label>
+                <div className="form-fields-row">
+                  <div className="field-group">
+                    <label>Full Name *</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Alex Chen"
+                      placeholder="e.g. Marcus Vance"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     />
                   </div>
 
-                  <div className="form-field">
-                    <label>Your Email *</label>
+                  <div className="field-group">
+                    <label>Corporate / Personal Email *</label>
                     <input
                       type="email"
                       required
-                      placeholder="e.g. alex@company.com"
+                      placeholder="e.g. marcus@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
                   </div>
                 </div>
 
-                <div className="form-field">
+                <div className="field-group">
                   <label>Subject</label>
                   <input
                     type="text"
@@ -257,12 +256,12 @@ export default function Contact() {
                   />
                 </div>
 
-                <div className="form-field">
-                  <label>Message *</label>
+                <div className="field-group">
+                  <label>Message Content *</label>
                   <textarea
                     rows={4}
                     required
-                    placeholder="Tell Sham about your team, project requirements, or opportunity..."
+                    placeholder="Provide details about your project scope, technical timeline, or leadership opportunity..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   />
@@ -270,11 +269,11 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="submit-form-btn"
+                  className="btn-send-editorial"
                   onClick={() => soundManager.playHover()}
                 >
-                  <Send size={16} />
-                  <span>Transmit Message</span>
+                  <Send size={15} />
+                  <span>Transmit Direct Message</span>
                 </button>
               </form>
             )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Terminal as TerminalIcon, X, Maximize2, Minimize2, CornerDownLeft, Sparkles } from "lucide-react";
+import { Terminal as TerminalIcon, X, CornerDownLeft, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
 import { personalInfo, projects, experience, technicalSkills } from "../data/portfolioData";
@@ -7,10 +7,9 @@ import { personalInfo, projects, experience, technicalSkills } from "../data/por
 export default function TerminalDrawer({ isOpen, onClose, onOpenProject }) {
   const [inputVal, setInputVal] = useState("");
   const [history, setHistory] = useState([
-    { type: "system", text: "⚡ Sham R [Interactive Terminal v2.4]" },
-    { type: "system", text: "Type 'help' to view available system commands or 'clear' to reset." }
+    { type: "system", text: "⚡ Sham R [Interactive CLI v3.0 — Editorial Edition]" },
+    { type: "system", text: "Type 'help' to review valid system commands or 'clear' to reset screen." }
   ]);
-  const [isMatrix, setIsMatrix] = useState(false);
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -44,14 +43,13 @@ export default function TerminalDrawer({ isOpen, onClose, onOpenProject }) {
             type: "output",
             text: `Available Commands:
   • help         - Display this manual
-  • projects     - List all featured software & vision projects
-  • skills       - Display technical skills & proficiency radar
-  • experience   - View professional work history & leadership milestones
-  • contact      - Print direct contact coordinates (Email, Phone, LinkedIn)
-  • download-cv  - Trigger CV download with celebratory confetti
-  • matrix       - Toggle matrix cyber theme
-  • clear        - Wipe screen output
-  • whoami       - Display current session entity`
+  • projects     - Enumerate all production & computer vision works
+  • skills       - Display technical competencies & active tech stack
+  • experience   - View professional leadership progression
+  • contact      - Print direct coordinates (Email, Phone, Profiles)
+  • download-cv  - Trigger instant Curriculum Vitae print dialog
+  • clear        - Reset output console
+  • whoami       - Inspect current session context`
           });
           break;
 
@@ -59,7 +57,7 @@ export default function TerminalDrawer({ isOpen, onClose, onOpenProject }) {
           newHistory.push({
             type: "output",
             text: projects
-              .map((p, i) => `[${i + 1}] ${p.title}\n    Category: ${p.category} | Tech: ${p.technologies.slice(0, 3).join(", ")}`)
+              .map((p, i) => `[${i + 1}] ${p.title}\n    Category: ${p.category} | Stack: ${p.technologies.slice(0, 3).join(", ")}`)
               .join("\n\n")
           });
           break;
@@ -67,11 +65,11 @@ export default function TerminalDrawer({ isOpen, onClose, onOpenProject }) {
         case "skills":
           newHistory.push({
             type: "output",
-            text: `Frontend: React.js, Next.js, JavaScript (ES6+), CSS3, Tailwind CSS
+            text: `Frontend: React.js, Next.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS
 Backend:  Node.js, Express.js, PHP, RESTful APIs, Django
-Mobile:   Android Studio, Java, Kotlin, XML UI, Flutter
+Mobile:   Android Studio, Java, Kotlin, XML UI, Location/GPS
 Database: MySQL, PostgreSQL, MS SQL Server, MongoDB
-Cloud:    AWS, CI/CD, cPanel, Server Management
+Cloud:    AWS Fundamentals, cPanel, Server Management, CI/CD
 Vision:   Python, OpenCV, Real-Time Image Processing`
           });
           break;
@@ -103,22 +101,14 @@ LinkedIn:  ${personalInfo.linkedin}`
           soundManager.playSuccess();
           newHistory.push({
             type: "output",
-            text: "🎉 Downloading Sham R's CV... Opening resume dialog!"
-          });
-          break;
-
-        case "matrix":
-          setIsMatrix(!isMatrix);
-          newHistory.push({
-            type: "output",
-            text: isMatrix ? "Matrix mode deactivated." : "⚡ MATRIX MODE ACTIVATED: Follow the white rabbit..."
+            text: "🎉 Opening Curriculum Vitae print & export dialog..."
           });
           break;
 
         case "whoami":
           newHistory.push({
             type: "output",
-            text: "A forward-thinking recruiter or technology leader evaluating Sham R's portfolio!"
+            text: "An engineering leader, recruiter, or collaborator evaluating Sham R's portfolio."
           });
           break;
 
@@ -130,7 +120,7 @@ LinkedIn:  ${personalInfo.linkedin}`
         default:
           newHistory.push({
             type: "error",
-            text: `Command not recognized: "${cmd}". Type 'help' for valid commands.`
+            text: `Command not found: "${cmd}". Enter 'help' for command list.`
           });
           break;
       }
@@ -141,48 +131,35 @@ LinkedIn:  ${personalInfo.linkedin}`
   };
 
   return (
-    <div className="terminal-drawer-overlay" onClick={onClose}>
+    <div className="terminal-editorial-overlay" onClick={onClose}>
       <div
-        className={`terminal-drawer-panel ${isMatrix ? "matrix-theme" : ""}`}
+        className="terminal-editorial-window"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="terminal-bar">
-          <div className="terminal-dots">
-            <span className="dot red" onClick={onClose}></span>
-            <span className="dot yellow"></span>
-            <span className="dot green"></span>
+        <div className="terminal-header-bar">
+          <div className="terminal-header-left">
+            <span className="dot-circle red" onClick={onClose}></span>
+            <span className="dot-circle yellow"></span>
+            <span className="dot-circle green"></span>
+            <span className="terminal-tab-title">sham@workstation:~ (zsh)</span>
           </div>
 
-          <div className="terminal-title">
-            <TerminalIcon size={14} className="accent-cyan" />
-            <span>sham@developer-terminal:~ (bash)</span>
-          </div>
-
-          <div className="terminal-actions">
-            <button
-              className="term-icon-btn"
-              onClick={() => setIsMatrix(!isMatrix)}
-              title="Toggle Matrix Theme"
-            >
-              <Sparkles size={14} />
-            </button>
-            <button className="term-icon-btn" onClick={onClose} title="Close Terminal">
-              <X size={15} />
-            </button>
-          </div>
+          <button className="btn-close-term" onClick={onClose} title="Close CLI">
+            <X size={15} />
+          </button>
         </div>
 
-        <div className="terminal-content">
+        <div className="terminal-scroll-area">
           {history.map((line, i) => (
-            <div key={i} className={`terminal-line line-${line.type}`}>
+            <div key={i} className={`cli-line line-${line.type}`}>
               <pre>{line.text}</pre>
             </div>
           ))}
           <div ref={bottomRef} />
         </div>
 
-        <div className="terminal-input-bar">
-          <span className="terminal-prompt">sham@portfolio:~$</span>
+        <div className="terminal-bottom-input">
+          <span className="terminal-prompt-tag">sham@terminal:~$</span>
           <input
             ref={inputRef}
             type="text"
@@ -190,11 +167,11 @@ LinkedIn:  ${personalInfo.linkedin}`
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={handleCommand}
             placeholder="Type 'help', 'projects', 'skills', 'contact'..."
-            className="terminal-input"
+            className="terminal-text-input"
             autoFocus
           />
           <button
-            className="terminal-submit-btn"
+            className="btn-submit-cmd"
             onClick={() => handleCommand({ key: "Enter" })}
           >
             <CornerDownLeft size={14} />

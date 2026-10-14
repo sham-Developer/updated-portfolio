@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Search, Layout, Server, Smartphone, Database, Cloud, Wrench, Sparkles, CheckCircle2 } from "lucide-react";
+import { Search, Layout, Server, Smartphone, Database, Cloud, Wrench, CheckCircle2 } from "lucide-react";
 import { soundManager } from "../utils/sound";
 import { technicalSkills } from "../data/portfolioData";
 
 const CATEGORY_TABS = [
-  { key: "all", label: "All Skills" },
+  { key: "all", label: "All Technologies" },
   { key: "frontend", label: "Frontend", icon: Layout },
   { key: "backend", label: "Backend & APIs", icon: Server },
   { key: "mobile", label: "Mobile / Android", icon: Smartphone },
   { key: "database", label: "Databases", icon: Database },
   { key: "cloud", label: "Cloud & CI/CD", icon: Cloud },
-  { key: "tools", label: "Tools & Methodologies", icon: Wrench }
+  { key: "tools", label: "Tools & Leadership", icon: Wrench }
 ];
 
 export default function Skills() {
@@ -51,27 +51,27 @@ export default function Skills() {
   return (
     <section id="skills" className="skills-section">
       <div className="section-container">
-        {/* Section Header */}
-        <div className="section-header-centered">
-          <span className="section-subtitle">ARSENAL & PROFICIENCY</span>
+        {/* Editorial Section Header */}
+        <div className="section-header-centered reveal-on-scroll">
+          <span className="section-label-chip">CAPABILITIES & ARSENAL</span>
           <h2 className="section-main-title">
-            Technical <span className="gradient-text-purple">Skills & Competencies</span>
+            Technical Proficiency & <span className="text-cobalt">Production Stack</span>
           </h2>
           <p className="section-desc">
-            Nearly 3 years of production expertise spanning modern web frameworks, native mobile architectures, database management, and computer vision.
+            Granular breakdown of production expertise across modern frontend ecosystems, enterprise APIs, native Android architectures, database optimization, and computer vision.
           </p>
         </div>
 
         {/* Search & Category Filter Controls */}
-        <div className="skills-controls-bar">
-          <div className="skills-search-wrapper">
-            <Search size={16} className="search-icon" />
+        <div className="skills-editorial-controls reveal-on-scroll delay-100">
+          <div className="skills-search-box">
+            <Search size={16} className="search-icon-dark" />
             <input
               type="text"
-              placeholder="Filter by technology (e.g. React, Node, Android, MySQL, AWS)..."
+              placeholder="Search technology (e.g. React, Node, Android, Kotlin, MySQL, AWS, OpenCV)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="skills-search-input"
+              className="skills-input-field"
             />
             {searchQuery && (
               <button className="clear-search-btn" onClick={() => setSearchQuery("")}>
@@ -80,20 +80,20 @@ export default function Skills() {
             )}
           </div>
 
-          <div className="skills-category-tabs">
+          <div className="skills-tabs-row">
             {CATEGORY_TABS.map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.key}
-                  className={`skills-cat-tab ${activeCategory === tab.key ? "active" : ""}`}
+                  className={`skills-tab-pill ${activeCategory === tab.key ? "active" : ""}`}
                   onClick={() => {
                     soundManager.playClick();
                     setActiveCategory(tab.key);
                   }}
                   onMouseEnter={() => soundManager.playHover()}
                 >
-                  {Icon && <Icon size={14} />}
+                  {Icon && <Icon size={13} />}
                   <span>{tab.label}</span>
                 </button>
               );
@@ -102,47 +102,43 @@ export default function Skills() {
         </div>
 
         {/* Skills Cards Grid */}
-        <div className="skills-grid">
+        <div className="skills-cards-grid reveal-on-scroll delay-200">
           {displaySkills.length > 0 ? (
             displaySkills.map((skill, idx) => (
               <div
                 key={idx}
-                className="skill-meter-card"
+                className="skill-dossier-card"
                 onMouseEnter={() => soundManager.playHover()}
               >
-                <div className="skill-card-top">
-                  <div className="skill-name-area">
-                    <span className="skill-name">{skill.name}</span>
-                    <span className="skill-category-tag">{skill.category}</span>
+                <div className="skill-card-top-line">
+                  <div>
+                    <span className="skill-item-name">{skill.name}</span>
+                    <span className="skill-domain-tag">{skill.category}</span>
                   </div>
-                  <div className="skill-exp-badge">
-                    <span>{skill.exp}</span>
-                  </div>
+                  <span className="skill-tenure-tag">{skill.exp}</span>
                 </div>
 
-                <div className="skill-progress-track">
+                <div className="skill-meter-rail">
                   <div
-                    className="skill-progress-bar"
+                    className="skill-meter-fill"
                     style={{ width: `${skill.level}%` }}
-                  >
-                    <div className="progress-glow"></div>
-                  </div>
+                  ></div>
                 </div>
 
-                <div className="skill-card-bottom">
-                  <span className="proficiency-label">Proficiency</span>
-                  <span className="proficiency-pct">{skill.level}%</span>
+                <div className="skill-card-footer">
+                  <span className="proficiency-word">Proficiency Level</span>
+                  <span className="proficiency-score">{skill.level}%</span>
                 </div>
               </div>
             ))
           ) : (
-            <div className="no-skills-found">
-              <p>No technologies matching "{searchQuery}"</p>
+            <div className="no-skills-empty-state">
+              <p>No technologies found matching "{searchQuery}"</p>
               <button
-                className="reset-search-pill"
+                className="btn-reset-filter"
                 onClick={() => setSearchQuery("")}
               >
-                Reset Search
+                Reset Search Filter
               </button>
             </div>
           )}

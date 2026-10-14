@@ -1,27 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Play, Pause, AlertTriangle, CheckCircle2, XCircle, RefreshCw, Eye, ShieldAlert, Cpu } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import { Play, Pause, AlertTriangle, CheckCircle2, XCircle, Eye, ShieldAlert, Cpu } from "lucide-react";
 import { soundManager } from "../utils/sound";
 
 export default function WheelInspectionSimulator() {
   const [isScanning, setIsScanning] = useState(true);
-  const [defectMode, setDefectMode] = useState("mixed"); // "clear", "defect", "mixed"
+  const [defectMode, setDefectMode] = useState("mixed");
   const [fps, setFps] = useState(60);
   const [latency, setLatency] = useState(14.8);
   const [selectedGap, setSelectedGap] = useState(1);
   const canvasRef = useRef(null);
   const angleRef = useRef(0);
 
-  // Simulated gap metrics
   const [gaps, setGaps] = useState([
-    { id: 1, status: "clear", score: 0.04, label: "Gap #1: Clean" },
+    { id: 1, status: "clear", score: 0.04, label: "Gap #1: Clean Rim" },
     { id: 2, status: "obstructed", score: 0.89, label: "Gap #2: Dust Blockage" },
     { id: 3, status: "partial", score: 0.42, label: "Gap #3: Edge Obstruction" },
-    { id: 4, status: "clear", score: 0.06, label: "Gap #4: Clean" },
-    { id: 5, status: "clear", score: 0.02, label: "Gap #5: Clean" }
+    { id: 4, status: "clear", score: 0.06, label: "Gap #4: Clean Rim" },
+    { id: 5, status: "clear", score: 0.02, label: "Gap #5: Clean Rim" }
   ]);
 
   useEffect(() => {
-    // Update gap statuses based on defectMode
     if (defectMode === "clear") {
       setGaps([
         { id: 1, status: "clear", score: 0.02, label: "Gap #1: Pass" },
@@ -49,7 +47,6 @@ export default function WheelInspectionSimulator() {
     }
   }, [defectMode]);
 
-  // Canvas animation of rotating wheel and computer vision bounding overlay
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -69,8 +66,11 @@ export default function WheelInspectionSimulator() {
 
       ctx.clearRect(0, 0, w, h);
 
-      // Background grid (industrial camera grid)
-      ctx.strokeStyle = "rgba(0, 240, 255, 0.06)";
+      // Light architectural grid
+      ctx.fillStyle = "#f8f7f3";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.strokeStyle = "rgba(20, 23, 26, 0.06)";
       ctx.lineWidth = 1;
       const step = 20;
       for (let x = 0; x < w; x += step) {
@@ -92,13 +92,13 @@ export default function WheelInspectionSimulator() {
 
       ctx.beginPath();
       ctx.arc(0, 0, r, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(148, 163, 184, 0.4)";
+      ctx.strokeStyle = "#475569";
       ctx.lineWidth = 10;
       ctx.stroke();
 
       ctx.beginPath();
       ctx.arc(0, 0, r - 12, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(71, 85, 105, 0.6)";
+      ctx.strokeStyle = "#94a3b8";
       ctx.lineWidth = 3;
       ctx.stroke();
 
@@ -107,17 +107,16 @@ export default function WheelInspectionSimulator() {
       ctx.arc(0, 0, r * 0.28, 0, Math.PI * 2);
       ctx.fillStyle = "#1e293b";
       ctx.fill();
-      ctx.strokeStyle = "#00f0ff";
+      ctx.strokeStyle = "#1a44c2";
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Draw 5 rotating spokes and gaps
+      // Spokes and Gaps
       const spokeCount = 5;
       for (let i = 0; i < spokeCount; i++) {
         const spokeAngle = angle + (i * Math.PI * 2) / spokeCount;
         const gap = gaps[i] || { status: "clear" };
 
-        // Spoke line
         ctx.save();
         ctx.rotate(spokeAngle);
         ctx.beginPath();
@@ -125,18 +124,9 @@ export default function WheelInspectionSimulator() {
         ctx.lineTo(r - 10, 0);
         ctx.lineWidth = 14;
         ctx.lineCap = "round";
-        ctx.strokeStyle = "#475569";
+        ctx.strokeStyle = "#334155";
         ctx.stroke();
 
-        // High-tech spoke inner reflection
-        ctx.beginPath();
-        ctx.moveTo(r * 0.32, 0);
-        ctx.lineTo(r - 14, 0);
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-        ctx.stroke();
-
-        // Gap detection sector overlay
         const sectorAngle = Math.PI / spokeCount;
         ctx.rotate(sectorAngle);
 
@@ -144,25 +134,23 @@ export default function WheelInspectionSimulator() {
         ctx.arc(0, 0, r * 0.65, -sectorAngle * 0.45, sectorAngle * 0.45);
         ctx.lineWidth = 18;
 
-        let statusColor = "rgba(16, 185, 129, 0.6)"; // green
-        let strokeColor = "#10b981";
+        let statusColor = "rgba(27, 101, 71, 0.7)";
+        let strokeColor = "#1b6547";
         if (gap.status === "obstructed") {
-          statusColor = "rgba(239, 68, 68, 0.75)"; // red
-          strokeColor = "#ef4444";
+          statusColor = "rgba(200, 75, 49, 0.85)";
+          strokeColor = "#c84b31";
         } else if (gap.status === "partial") {
-          statusColor = "rgba(234, 179, 8, 0.7)"; // yellow
-          strokeColor = "#eab308";
+          statusColor = "rgba(180, 83, 9, 0.8)";
+          strokeColor = "#b45309";
         }
 
         ctx.strokeStyle = statusColor;
         ctx.stroke();
 
-        // OpenCV Bounding Box visualization
         ctx.strokeStyle = strokeColor;
         ctx.lineWidth = 1.5;
         ctx.strokeRect(r * 0.45, -12, r * 0.38, 24);
 
-        // Gap ID marker
         ctx.fillStyle = strokeColor;
         ctx.font = "bold 9px JetBrains Mono, monospace";
         ctx.fillText(`GAP_${i + 1}`, r * 0.48, -16);
@@ -175,40 +163,28 @@ export default function WheelInspectionSimulator() {
       // Camera laser scanning line
       if (isScanning) {
         const scanY = (Math.sin(Date.now() * 0.003) * 0.5 + 0.5) * h;
-        const grad = ctx.createLinearGradient(0, scanY - 8, 0, scanY + 8);
-        grad.addColorStop(0, "rgba(0, 240, 255, 0)");
-        grad.addColorStop(0.5, "rgba(0, 240, 255, 0.65)");
-        grad.addColorStop(1, "rgba(0, 240, 255, 0)");
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, scanY - 8, w, 16);
-
         ctx.beginPath();
         ctx.moveTo(0, scanY);
         ctx.lineTo(w, scanY);
-        ctx.strokeStyle = "#00f0ff";
+        ctx.strokeStyle = "#c84b31";
         ctx.lineWidth = 1.5;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "#00f0ff";
         ctx.stroke();
-        ctx.shadowBlur = 0;
       }
 
-      // Live camera frame metadata HUD
-      ctx.fillStyle = "rgba(0, 240, 255, 0.85)";
-      ctx.font = "10px JetBrains Mono, monospace";
+      // HUD readout in deep ink
+      ctx.fillStyle = "#1e2329";
+      ctx.font = "bold 10px JetBrains Mono, monospace";
       ctx.fillText(`CAM_FEED: 1080p @ ${fps}FPS`, 15, 22);
-      ctx.fillText(`CV_ENGINE: OpenCV 4.8.x`, 15, 36);
-      ctx.fillText(`INSPECTION_MODE: REAL_TIME`, 15, 50);
+      ctx.fillText(`CV_ENGINE: OpenCV 4.8 (Python)`, 15, 36);
+      ctx.fillText(`ROTATION_SPEED: 12 RPM`, 15, 50);
 
-      // Live timestamp
       const now = new Date();
-      ctx.fillText(now.toISOString().split("T")[1].replace("Z", ""), w - 130, 22);
+      ctx.fillText(now.toISOString().split("T")[1].replace("Z", ""), w - 120, 22);
 
       animId = requestAnimationFrame(render);
     };
 
     render();
-
     return () => cancelAnimationFrame(animId);
   }, [isScanning, defectMode, gaps, fps]);
 
@@ -223,99 +199,98 @@ export default function WheelInspectionSimulator() {
   };
 
   return (
-    <div className="wheel-simulator-container">
-      <div className="wheel-sim-header">
-        <div className="wheel-sim-title-group">
-          <div className="wheel-status-indicator">
-            <span className={`status-dot ${isScanning ? "active-pulse" : "paused"}`}></span>
-            <span className="status-text">{isScanning ? "LIVE CAMERA SCAN ACTIVE" : "STREAM PAUSED"}</span>
+    <div className="wheel-simulator-box">
+      <div className="wheel-sim-bar">
+        <div className="wheel-sim-heading-meta">
+          <div className="wheel-active-tag">
+            <span className={`status-point ${isScanning ? "pulse" : "static"}`}></span>
+            <span className="status-label">{isScanning ? "LIVE OPENCV STREAM ACTIVE" : "STREAM PAUSED"}</span>
           </div>
-          <h4>OpenCV Real-Time Alloy Wheel Gap Inspector</h4>
+          <h4 className="wheel-module-title">Alloy Wheel Gap Quality Control Rig</h4>
         </div>
 
-        <div className="wheel-sim-controls">
+        <div className="wheel-bar-actions">
           <button
-            className={`sim-btn ${isScanning ? "sim-btn-active" : ""}`}
+            className={`sim-action-pill ${isScanning ? "active" : ""}`}
             onClick={toggleScan}
-            title={isScanning ? "Pause Inspection" : "Start Inspection"}
           >
-            {isScanning ? <Pause size={14} /> : <Play size={14} />}
-            <span>{isScanning ? "Pause Feed" : "Resume"}</span>
+            {isScanning ? <Pause size={13} /> : <Play size={13} />}
+            <span>{isScanning ? "Pause Stream" : "Resume"}</span>
           </button>
 
-          <div className="defect-selector-group">
+          <div className="defect-filter-pills">
             <button
-              className={`filter-pill-btn ${defectMode === "mixed" ? "active" : ""}`}
+              className={`pill-opt ${defectMode === "mixed" ? "active" : ""}`}
               onClick={() => handleModeChange("mixed")}
             >
-              Test Scene
+              Test Rig
             </button>
             <button
-              className={`filter-pill-btn ${defectMode === "clear" ? "active" : ""}`}
+              className={`pill-opt ${defectMode === "clear" ? "active" : ""}`}
               onClick={() => handleModeChange("clear")}
             >
-              All Clear
+              100% Pass
             </button>
             <button
-              className={`filter-pill-btn ${defectMode === "defect" ? "active" : ""}`}
+              className={`pill-opt ${defectMode === "defect" ? "active" : ""}`}
               onClick={() => handleModeChange("defect")}
             >
-              Inject Defects
+              Inject Obstructions
             </button>
           </div>
         </div>
       </div>
 
-      <div className="wheel-sim-body">
-        <div className="wheel-canvas-wrapper">
-          <canvas ref={canvasRef} width={420} height={320} className="wheel-canvas" />
-          <div className="canvas-crosshair top-left"></div>
-          <div className="canvas-crosshair top-right"></div>
-          <div className="canvas-crosshair bottom-left"></div>
-          <div className="canvas-crosshair bottom-right"></div>
+      <div className="wheel-sim-content-grid">
+        <div className="wheel-canvas-frame">
+          <canvas ref={canvasRef} width={420} height={320} className="wheel-draw-canvas" />
+          <div className="canvas-bracket bl-tl"></div>
+          <div className="canvas-bracket bl-tr"></div>
+          <div className="canvas-bracket bl-bl"></div>
+          <div className="canvas-bracket bl-br"></div>
         </div>
 
-        <div className="wheel-telemetry-panel">
-          <div className="telemetry-header">
-            <Cpu size={14} className="accent-cyan" />
+        <div className="wheel-telemetry-dossier">
+          <div className="telemetry-title-strip">
+            <Cpu size={14} className="text-cobalt" />
             <span>Telemetry & Vision Matrix</span>
           </div>
 
-          <div className="telemetry-stats-row">
-            <div className="sim-stat-box">
-              <span className="stat-label">Inference Latency</span>
-              <span className="stat-val accent-cyan">{latency} ms</span>
+          <div className="telemetry-stat-pills-row">
+            <div className="telemetry-box">
+              <span className="t-label">Inference Latency</span>
+              <span className="t-val text-cobalt">{latency} ms</span>
             </div>
-            <div className="sim-stat-box">
-              <span className="stat-label">Frame Rate</span>
-              <span className="stat-val accent-purple">{fps} FPS</span>
+            <div className="telemetry-box">
+              <span className="t-label">Frame Rate</span>
+              <span className="t-val text-forest">{fps} FPS</span>
             </div>
-            <div className="sim-stat-box">
-              <span className="stat-label">Gaps Tracked</span>
-              <span className="stat-val">5 Spokes</span>
+            <div className="telemetry-box">
+              <span className="t-label">Monitored Spokes</span>
+              <span className="t-val text-ink">5 Spokes</span>
             </div>
           </div>
 
-          <div className="gap-classification-list">
-            <span className="list-heading">Spoke Gap Real-Time Classification:</span>
+          <div className="spokes-classification-list">
+            <span className="spokes-heading">Spoke Gap Real-Time Classification:</span>
             {gaps.map((g) => (
               <div
                 key={g.id}
-                className={`gap-row ${g.status} ${selectedGap === g.id ? "selected" : ""}`}
+                className={`spoke-row ${g.status} ${selectedGap === g.id ? "selected" : ""}`}
                 onClick={() => {
                   soundManager.playHover();
                   setSelectedGap(g.id);
                 }}
               >
-                <div className="gap-info">
-                  {g.status === "clear" && <CheckCircle2 size={14} className="status-icon green" />}
-                  {g.status === "obstructed" && <XCircle size={14} className="status-icon red" />}
-                  {g.status === "partial" && <AlertTriangle size={14} className="status-icon yellow" />}
-                  <span className="gap-name">{g.label}</span>
+                <div className="spoke-data">
+                  {g.status === "clear" && <CheckCircle2 size={14} className="text-forest" />}
+                  {g.status === "obstructed" && <XCircle size={14} className="text-terracotta" />}
+                  {g.status === "partial" && <AlertTriangle size={14} className="text-amber" />}
+                  <span className="spoke-name">{g.label}</span>
                 </div>
-                <div className="gap-score-badge">
+                <div className="spoke-score-wrap">
                   <span>Obstruction: {(g.score * 100).toFixed(0)}%</span>
-                  <span className={`status-tag ${g.status}`}>
+                  <span className={`spoke-verdict ${g.status}`}>
                     {g.status === "clear" ? "PASS" : g.status === "obstructed" ? "REJECT" : "WARN"}
                   </span>
                 </div>
@@ -323,9 +298,9 @@ export default function WheelInspectionSimulator() {
             ))}
           </div>
 
-          <div className="vision-logic-callout">
-            <Eye size={12} className="accent-cyan" />
-            <span>Algorithm: Adaptive frame difference & thresholding on rotating wheel axis</span>
+          <div className="vision-algorithm-note">
+            <Eye size={12} className="text-cobalt" />
+            <span>Algorithm: Adaptive frame differencing & contour segmentation on rotating rim axis</span>
           </div>
         </div>
       </div>

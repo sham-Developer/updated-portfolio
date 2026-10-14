@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUp, Mail, Heart, Sparkles, Terminal } from "lucide-react";
+import { ArrowUp, Mail, Sparkles, Terminal } from "lucide-react";
 import { Github, Linkedin } from "./Icons";
 import { soundManager } from "../utils/sound";
 import { personalInfo } from "../data/portfolioData";
@@ -11,35 +11,35 @@ export default function Footer({ onOpenTerminal, onOpenResume }) {
   };
 
   return (
-    <footer className="portfolio-footer">
-      <div className="footer-glow-separator"></div>
+    <footer className="editorial-footer">
+      <div className="footer-top-accent-line"></div>
 
       <div className="footer-container">
-        <div className="footer-top-row">
-          <div className="footer-brand">
-            <span className="brand-bracket">&lt;</span>
-            <span className="brand-name">{personalInfo.name}</span>
-            <span className="brand-ext">.dev</span>
-            <span className="brand-bracket"> /&gt;</span>
-            <p className="footer-tagline">
-              Software Developer & Team Leader • Crafting resilient web architectures, native Android apps, and computer vision systems.
+        <div className="footer-main-row">
+          <div className="footer-brand-column">
+            <div className="footer-monogram">
+              <span className="mono-letter">S</span>
+              <span className="mono-name">SHAM R</span>
+            </div>
+            <p className="footer-pitch-text">
+              Software Developer & Team Leader based in Coimbatore, Tamil Nadu. Engineering high-performance web applications, native Android software, and automated computer vision systems.
             </p>
           </div>
 
-          <div className="footer-quick-links">
-            <div className="footer-nav-col">
-              <h5>Navigation</h5>
+          <div className="footer-links-grid">
+            <div className="footer-links-col">
+              <h5>Index</h5>
               <a href="#hero">Overview</a>
-              <a href="#about">About & Leadership</a>
-              <a href="#experience">Experience</a>
-              <a href="#projects">Projects</a>
-              <a href="#skills">Tech Stack</a>
+              <a href="#projects">Selected Works</a>
+              <a href="#experience">Career History</a>
+              <a href="#about">Philosophy</a>
+              <a href="#skills">Tech Arsenal</a>
             </div>
 
-            <div className="footer-nav-col">
-              <h5>Quick Actions</h5>
+            <div className="footer-links-col">
+              <h5>Utilities</h5>
               <button
-                className="footer-action-link"
+                className="footer-link-btn"
                 onClick={() => {
                   soundManager.playClick();
                   onOpenResume();
@@ -48,19 +48,19 @@ export default function Footer({ onOpenTerminal, onOpenResume }) {
                 Curriculum Vitae
               </button>
               <button
-                className="footer-action-link"
+                className="footer-link-btn"
                 onClick={() => {
                   soundManager.playClick();
                   onOpenTerminal();
                 }}
               >
-                Terminal CLI (Ctrl+K)
+                CLI Terminal (⌘K)
               </button>
-              <a href="#contact">Contact Me</a>
+              <a href="#contact">Dispatch Inquiry</a>
             </div>
 
-            <div className="footer-nav-col">
-              <h5>Profiles</h5>
+            <div className="footer-links-col">
+              <h5>Network</h5>
               <a
                 href={personalInfo.github}
                 target="_blank"
@@ -80,19 +80,19 @@ export default function Footer({ onOpenTerminal, onOpenResume }) {
           </div>
         </div>
 
-        <div className="footer-bottom-row">
-          <p className="copyright-text">
-            © {new Date().getFullYear()} {personalInfo.name}. Built with React, Vite & Vanilla CSS. All rights reserved.
+        <div className="footer-copyright-bar">
+          <p className="copyright-line">
+            © {new Date().getFullYear()} {personalInfo.name}. Designed & Engineered with React 19, Vite & Vanilla CSS.
           </p>
 
           <button
-            className="back-to-top-btn"
+            className="btn-scroll-top"
             onClick={scrollToTop}
-            title="Return to top"
+            title="Return to top of page"
             aria-label="Back to top"
           >
-            <span>Back to Top</span>
-            <ArrowUp size={15} />
+            <span>Top of Page</span>
+            <ArrowUp size={14} />
           </button>
         </div>
       </div>

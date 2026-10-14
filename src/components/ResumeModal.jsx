@@ -1,8 +1,8 @@
 import React from "react";
-import { X, Download, Printer, Check, Copy, ExternalLink, Mail, Phone, MapPin, Award, Briefcase, GraduationCap, Code } from "lucide-react";
+import { X, Printer, Phone, Mail, MapPin, ExternalLink, Briefcase, GraduationCap, Code } from "lucide-react";
 import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
-import { personalInfo, experience, education, certifications, technicalSkills, projects } from "../data/portfolioData";
+import { personalInfo, experience, education, technicalSkills, projects } from "../data/portfolioData";
 
 export default function ResumeModal({ isOpen, onClose }) {
   if (!isOpen) return null;
@@ -18,15 +18,15 @@ export default function ResumeModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="resume-modal-dialog" onClick={(e) => e.stopPropagation()}>
-        <div className="resume-modal-actions-bar">
-          <div className="resume-modal-title">
-            <span>Curriculum Vitae Preview • Sham R</span>
+    <div className="editorial-modal-backdrop" onClick={onClose}>
+      <div className="resume-editorial-dialog" onClick={(e) => e.stopPropagation()}>
+        <div className="resume-actions-bar">
+          <div className="resume-dialog-title">
+            <span>Curriculum Vitae • Sham R (Software Team Leader)</span>
           </div>
-          <div className="resume-btn-group">
+          <div className="resume-actions-group">
             <button
-              className="action-pill-btn primary"
+              className="btn-print-cv"
               onClick={handleDownload}
               title="Print or Save as PDF"
             >
@@ -34,7 +34,7 @@ export default function ResumeModal({ isOpen, onClose }) {
               <span>Print / Save PDF</span>
             </button>
             <button
-              className="action-pill-btn close"
+              className="btn-close-cv"
               onClick={() => {
                 soundManager.playClick();
                 onClose();
@@ -46,14 +46,14 @@ export default function ResumeModal({ isOpen, onClose }) {
           </div>
         </div>
 
-        <div className="resume-sheet" id="printable-resume">
+        <div className="resume-document-sheet" id="printable-resume">
           {/* Header */}
-          <header className="resume-sheet-header">
+          <header className="resume-doc-header">
             <div>
               <h1 className="resume-name">{personalInfo.name}</h1>
-              <h2 className="resume-role">{personalInfo.title}</h2>
+              <h2 className="resume-role-tag">{personalInfo.title}</h2>
             </div>
-            <div className="resume-contacts">
+            <div className="resume-coords-block">
               <div><Phone size={12} /> {personalInfo.phone}</div>
               <div><Mail size={12} /> {personalInfo.email}</div>
               <div><MapPin size={12} /> {personalInfo.location}</div>
@@ -61,28 +61,28 @@ export default function ResumeModal({ isOpen, onClose }) {
             </div>
           </header>
 
-          <hr className="resume-divider" />
+          <hr className="resume-line-rule" />
 
           {/* About */}
-          <section className="resume-sec">
-            <h3 className="resume-sec-title">PROFESSIONAL SUMMARY</h3>
-            <p className="resume-text">{personalInfo.aboutBio}</p>
+          <section className="resume-section-item">
+            <h3 className="resume-sec-heading">PROFESSIONAL SUMMARY</h3>
+            <p className="resume-paragraph">{personalInfo.aboutBio}</p>
           </section>
 
           {/* Experience */}
-          <section className="resume-sec">
-            <h3 className="resume-sec-title">WORK EXPERIENCE</h3>
+          <section className="resume-section-item">
+            <h3 className="resume-sec-heading">WORK EXPERIENCE</h3>
             {experience.map((exp, i) => (
-              <div key={i} className="resume-job-entry">
-                <div className="resume-job-header">
+              <div key={i} className="resume-work-block">
+                <div className="resume-work-top">
                   <strong>{exp.company}</strong>
-                  <span className="resume-period">{exp.period}</span>
+                  <span className="resume-tenure text-cobalt">{exp.period}</span>
                 </div>
-                <div className="resume-sub-header">
-                  <span className="resume-sub-role">{exp.role}</span>
-                  <span className="resume-loc">{exp.location}</span>
+                <div className="resume-work-sub">
+                  <span className="work-role">{exp.role}</span>
+                  <span className="work-loc">{exp.location}</span>
                 </div>
-                <ul className="resume-bullets">
+                <ul className="resume-bullet-points">
                   {exp.highlights.map((h, hi) => (
                     <li key={hi}>{h}</li>
                   ))}
@@ -92,23 +92,23 @@ export default function ResumeModal({ isOpen, onClose }) {
           </section>
 
           {/* Key Projects */}
-          <section className="resume-sec">
-            <h3 className="resume-sec-title">KEY PROJECTS</h3>
+          <section className="resume-section-item">
+            <h3 className="resume-sec-heading">KEY PRODUCTION PROJECTS</h3>
             {projects.slice(0, 4).map((p, i) => (
-              <div key={i} className="resume-project-item">
-                <div className="resume-proj-header">
+              <div key={i} className="resume-project-block">
+                <div className="resume-proj-line">
                   <strong>{i + 1}. {p.title}</strong>
-                  <span className="resume-proj-tech">[{p.technologies.slice(0, 4).join(", ")}]</span>
+                  <span className="resume-proj-tags">[{p.technologies.slice(0, 4).join(", ")}]</span>
                 </div>
-                <p className="resume-proj-desc">{p.summary}</p>
+                <p className="resume-proj-summary">{p.summary}</p>
               </div>
             ))}
           </section>
 
           {/* Technical Skills */}
-          <section className="resume-sec">
-            <h3 className="resume-sec-title">TECHNICAL SKILLS</h3>
-            <div className="resume-skills-grid">
+          <section className="resume-section-item">
+            <h3 className="resume-sec-heading">TECHNICAL SKILLS</h3>
+            <div className="resume-skills-two-col">
               <div>
                 <strong>Frontend:</strong> React.js, Next.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Bootstrap
               </div>
@@ -128,15 +128,15 @@ export default function ResumeModal({ isOpen, onClose }) {
           </section>
 
           {/* Education & Certs */}
-          <section className="resume-sec">
-            <h3 className="resume-sec-title">EDUCATION & CERTIFICATIONS</h3>
-            <div className="resume-edu-list">
+          <section className="resume-section-item">
+            <h3 className="resume-sec-heading">EDUCATION & CERTIFICATIONS</h3>
+            <div className="resume-edu-stack">
               {education.map((edu, i) => (
-                <div key={i} className="resume-edu-item">
+                <div key={i} className="edu-entry">
                   <strong>{edu.degree}</strong> – {edu.institution} ({edu.period})
                 </div>
               ))}
-              <div className="resume-edu-item">
+              <div className="edu-entry">
                 <strong>Full Stack Python Developer</strong> – Appin Technology
               </div>
             </div>

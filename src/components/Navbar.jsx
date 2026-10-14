@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Terminal, Volume2, VolumeX, FileText, Menu, X, Sparkles, Send } from "lucide-react";
+import { Terminal, Volume2, VolumeX, FileText, Menu, X, ArrowUpRight } from "lucide-react";
 import { soundManager } from "../utils/sound";
 import { personalInfo } from "../data/portfolioData";
 
@@ -10,7 +10,7 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 30);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -23,31 +23,32 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
 
   const navLinks = [
     { label: "Overview", href: "#hero" },
-    { label: "About & Leadership", href: "#about" },
+    { label: "Selected Works", href: "#projects" },
     { label: "Experience", href: "#experience" },
-    { label: "Projects", href: "#projects" },
-    { label: "Tech Stack", href: "#skills" },
-    { label: "Education", href: "#education" },
+    { label: "About & Leadership", href: "#about" },
+    { label: "Proficiency", href: "#skills" },
+    { label: "Credentials", href: "#education" },
     { label: "Contact", href: "#contact" }
   ];
 
   return (
     <header className={`navbar-header ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-container">
-        {/* Brand / Logo */}
+        {/* Editorial Monogram Brand */}
         <a
           href="#hero"
           className="brand-logo"
           onClick={() => soundManager.playHover()}
         >
-          <span className="brand-bracket">&lt;</span>
-          <span className="brand-name">Sham</span>
-          <span className="brand-ext">.dev</span>
-          <span className="brand-bracket"> /&gt;</span>
-          <span className="brand-badge-pulse" title="Software Team Leader"></span>
+          <div className="brand-badge-box">S</div>
+          <div className="brand-text-block">
+            <span className="brand-title">SHAM R</span>
+            <span className="brand-role-caption">Software Team Lead</span>
+          </div>
+          <span className="brand-status-dot" title="Available for Impact"></span>
         </a>
 
-        {/* Desktop Nav Links */}
+        {/* Desktop Links */}
         <nav className="desktop-nav">
           {navLinks.map((link, i) => (
             <a
@@ -61,16 +62,16 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
           ))}
         </nav>
 
-        {/* Quick Utilities / CTAs */}
+        {/* Quick Utilities */}
         <div className="nav-utilities">
           {/* Sound Toggle */}
           <button
             className={`utility-btn ${soundEnabled ? "active" : "muted"}`}
             onClick={toggleSound}
-            title={soundEnabled ? "Mute Sound FX" : "Enable Sound FX"}
+            title={soundEnabled ? "Mute Acoustic FX" : "Enable Acoustic FX"}
             aria-label="Toggle Sound"
           >
-            {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+            {soundEnabled ? <Volume2 size={15} /> : <VolumeX size={15} />}
           </button>
 
           {/* Terminal Launcher */}
@@ -80,11 +81,11 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
               soundManager.playClick();
               onOpenTerminal();
             }}
-            title="Open Interactive Terminal (Ctrl+K)"
+            title="Open Interactive CLI (Ctrl+K)"
             aria-label="Terminal"
           >
-            <Terminal size={15} />
-            <span className="key-hint">Ctrl+K</span>
+            <Terminal size={14} />
+            <span className="key-hint">CLI ⌘K</span>
           </button>
 
           {/* Resume Viewer */}
@@ -94,10 +95,10 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
               soundManager.playClick();
               onOpenResume();
             }}
-            title="View & Download Resume"
+            title="View & Print Curriculum Vitae"
           >
-            <FileText size={15} />
-            <span className="btn-label">Resume</span>
+            <FileText size={14} />
+            <span className="btn-label">CV</span>
           </button>
 
           {/* Let's Talk CTA */}
@@ -106,8 +107,8 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
             className="nav-cta-btn"
             onClick={() => soundManager.playClick()}
           >
-            <Sparkles size={14} />
-            <span>Connect</span>
+            <span>Initiate Contact</span>
+            <ArrowUpRight size={14} />
           </a>
 
           {/* Mobile Menu Hamburger */}
@@ -150,7 +151,7 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
                 }}
               >
                 <FileText size={16} />
-                <span>View Full Resume</span>
+                <span>View Full Curriculum Vitae</span>
               </button>
               <button
                 className="mobile-drawer-btn"
@@ -160,7 +161,7 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
                 }}
               >
                 <Terminal size={16} />
-                <span>Interactive Terminal</span>
+                <span>Interactive Terminal (CLI)</span>
               </button>
             </div>
           </div>

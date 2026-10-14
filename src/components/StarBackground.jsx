@@ -1,5 +1,11 @@
 import React, { useEffect, useRef } from "react";
 
+/**
+ * Editorial Mesh/Topographic Background:
+ * Replaces the dark space/star canvas with a clean, bespoke, interactive
+ * fluid wave/topographic contour mesh in subtle warm bone & slate.
+ * Responds organically to mouse hover without feeling like a generic AI template!
+ */
 export default function StarBackground() {
   const canvasRef = useRef(null);
 
@@ -7,146 +13,97 @@ export default function StarBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    let animationFrameId;
+    let animationId;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      initParticles();
     };
-
     window.addEventListener("resize", handleResize);
 
-    const mouse = {
-      x: null,
-      y: null,
-      radius: 120
-    };
-
+    const mouse = { x: width * 0.7, y: height * 0.3, targetX: width * 0.7, targetY: height * 0.3 };
     const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
     };
-
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
-    };
-
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseleave", handleMouseLeave);
 
-    let particles = [];
-    const particleCount = Math.min(Math.floor((width * height) / 14000), 100);
+    let t = 0;
 
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.baseX = this.x;
-        this.baseY = this.y;
-        this.size = Math.random() * 2 + 0.8;
-        this.speedX = (Math.random() - 0.5) * 0.45;
-        this.speedY = (Math.random() - 0.5) * 0.45;
-        this.color = Math.random() > 0.4 ? "rgba(0, 240, 255, " : "rgba(168, 85, 247, ";
-        this.alpha = Math.random() * 0.5 + 0.2;
-      }
+    const render = () => {
+      t += 0.008;
+      // Smooth lerp mouse
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0) this.x = width;
-        if (this.x > width) this.x = 0;
-        if (this.y < 0) this.y = height;
-        if (this.y > height) this.y = 0;
-
-        // Mouse interaction
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < mouse.radius) {
-            const forceDirectionX = dx / distance;
-            const forceDirectionY = dy / distance;
-            const force = (mouse.radius - distance) / mouse.radius;
-            this.x -= forceDirectionX * force * 2.5;
-            this.y -= forceDirectionY * force * 2.5;
-          }
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `${this.color}${this.alpha})`;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = this.color.includes("0, 240") ? "#00f0ff" : "#a855f7";
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-    }
-
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    initParticles();
-
-    function connectParticles() {
-      const maxDist = 110;
-      for (let a = 0; a < particles.length; a++) {
-        for (let b = a + 1; b < particles.length; b++) {
-          const dx = particles[a].x - particles[b].x;
-          const dy = particles[a].y - particles[b].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < maxDist) {
-            const opacity = (1 - dist / maxDist) * 0.18;
-            ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(particles[a].x, particles[a].y);
-            ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    let frame = 0;
-    function animate() {
-      frame++;
       ctx.clearRect(0, 0, width, height);
 
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
+      // Draw subtle interactive geometric lines & editorial flow ribbons
+      const lineCount = 8;
+      const step = height / (lineCount + 1);
+
+      for (let i = 1; i <= lineCount; i++) {
+        const baseY = i * step;
+        ctx.beginPath();
+        ctx.moveTo(0, baseY);
+
+        for (let x = 0; x <= width; x += 30) {
+          // Distance from mouse creates organic deflection
+          const dx = x - mouse.x;
+          const dy = baseY - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const mouseDeflect = Math.max(0, 1 - dist / 320) * 45;
+
+          const wave = Math.sin(x * 0.003 + t + i * 0.4) * 16 + Math.cos(x * 0.006 - t * 0.5) * 8;
+          const y = baseY + wave - (mouseDeflect * (dy < 0 ? -1 : 1));
+
+          ctx.lineTo(x, y);
+        }
+
+        ctx.strokeStyle = i % 2 === 0 ? "rgba(20, 23, 26, 0.035)" : "rgba(26, 68, 194, 0.04)";
+        ctx.lineWidth = i % 3 === 0 ? 1.5 : 1;
+        ctx.stroke();
       }
-      connectParticles();
 
-      animationFrameId = requestAnimationFrame(animate);
-    }
+      // Draw a subtle soft architectural focus circle
+      const gradient = ctx.createRadialGradient(
+        mouse.x, mouse.y, 10,
+        mouse.x, mouse.y, 280
+      );
+      gradient.addColorStop(0, "rgba(26, 68, 194, 0.035)");
+      gradient.addColorStop(0.6, "rgba(200, 75, 49, 0.015)");
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 280, 0, Math.PI * 2);
+      ctx.fill();
 
-    animate();
+      animationId = requestAnimationFrame(render);
+    };
+
+    render();
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animationId);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="star-canvas-background"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        pointerEvents: "none",
+        zIndex: 0
+      }}
       aria-hidden="true"
     />
   );

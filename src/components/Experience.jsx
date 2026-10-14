@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Briefcase, Calendar, MapPin, CheckCircle2, ChevronRight, Award, Sparkles, Building2, TrendingUp } from "lucide-react";
+import { Building2, Calendar, MapPin, CheckCircle2, Award, ChevronRight, TrendingUp, ShieldCheck, Users } from "lucide-react";
 import { soundManager } from "../utils/sound";
 import { experience } from "../data/portfolioData";
 
@@ -9,100 +9,102 @@ export default function Experience() {
   return (
     <section id="experience" className="experience-section">
       <div className="section-container">
-        {/* Section Header */}
-        <div className="section-header-centered">
-          <span className="section-subtitle">CAREER MILESTONES</span>
+        {/* Editorial Section Header */}
+        <div className="section-header-centered reveal-on-scroll">
+          <span className="section-label-chip">CAREER TIMELINE</span>
           <h2 className="section-main-title">
-            Professional <span className="gradient-text-purple">Work Experience</span>
+            Professional Trajectory & <span className="text-terracotta">Leadership Ascent</span>
           </h2>
           <p className="section-desc">
-            A proven trajectory of rapid career progression from hands-on software development to leading high-performing engineering teams.
+            A verified trajectory of performance-based promotion: from practical engineering foundations to orchestrating multi-developer agile sprints and high-availability releases.
           </p>
         </div>
 
-        {/* Experience Timeline Layout */}
-        <div className="experience-layout">
-          {/* Left Navigation Tabs */}
-          <div className="experience-tabs-col">
+        {/* Experience Dual Column Layout */}
+        <div className="experience-editorial-grid">
+          {/* Left Column: Organization & Timeline Cards */}
+          <div className="experience-roles-nav reveal-on-scroll delay-100">
             {experience.map((exp, idx) => (
-              <button
+              <div
                 key={idx}
-                className={`exp-tab-card ${selectedExp === idx ? "active-tab" : ""}`}
+                className={`exp-nav-card ${selectedExp === idx ? "active-exp" : ""}`}
                 onClick={() => {
                   soundManager.playClick();
                   setSelectedExp(idx);
                 }}
                 onMouseEnter={() => soundManager.playHover()}
               >
-                <div className="exp-tab-indicator"></div>
-                <div className="exp-tab-content">
-                  <div className="exp-tab-top">
-                    <span className="exp-tab-company">{exp.company}</span>
-                    {exp.current && <span className="current-badge">CURRENT</span>}
-                  </div>
-                  <h4 className="exp-tab-role">{exp.role}</h4>
-                  <div className="exp-tab-period">
-                    <Calendar size={13} />
-                    <span>{exp.period}</span>
-                  </div>
+                <div className="exp-nav-top">
+                  <span className="exp-org-name">{exp.company}</span>
+                  {exp.current && <span className="current-lead-tag">CURRENT ROLE</span>}
                 </div>
-              </button>
+                <h4 className="exp-role-heading">{exp.role}</h4>
+                <div className="exp-period-line">
+                  <Calendar size={13} />
+                  <span>{exp.period}</span>
+                </div>
+              </div>
             ))}
 
-            {/* Career Growth Callout */}
-            <div className="career-growth-card">
-              <TrendingUp size={20} className="accent-cyan" />
-              <div>
-                <h5>Rapid Leadership Ascent</h5>
-                <p>Promoted from Junior Developer to Software Team Leader at Fisto Tech within 16 months based on consistent technical results and team impact.</p>
+            {/* Leadership Promotion Spotlight Card */}
+            <div className="promotion-spotlight-box">
+              <div className="spotlight-icon-wrap">
+                <TrendingUp size={20} className="text-cobalt" />
+              </div>
+              <div className="spotlight-content">
+                <h5>Fast-Track Leadership Promotion</h5>
+                <p>
+                  Promoted from Junior Software Developer to Software Team Leader at Fisto Tech within 16 months based on consistent technical results, code quality, and delivery leadership.
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Right Detailed Panel */}
-          <div className="experience-detail-col">
+          {/* Right Column: Detailed Responsibilities Dossier */}
+          <div className="experience-dossier-panel reveal-on-scroll delay-200">
             {experience[selectedExp] && (
-              <div className="experience-card">
-                <div className="card-header-row">
+              <div className="dossier-white-sheet">
+                <div className="sheet-top-header">
                   <div>
-                    <div className="company-meta-line">
-                      <Building2 size={16} className="accent-cyan" />
-                      <span className="company-name">{experience[selectedExp].company}</span>
-                      <span className="separator">•</span>
-                      <span className="loc-text">
-                        <MapPin size={14} />
+                    <div className="sheet-location-row">
+                      <Building2 size={16} className="text-cobalt" />
+                      <strong>{experience[selectedExp].company}</strong>
+                      <span className="dot-sep">•</span>
+                      <span className="location-text">
+                        <MapPin size={13} />
                         {experience[selectedExp].location}
                       </span>
                     </div>
-                    <h3 className="role-title">{experience[selectedExp].role}</h3>
+                    <h3 className="sheet-role-title">{experience[selectedExp].role}</h3>
                   </div>
 
-                  <div className="period-badge-wrapper">
-                    <span className="period-pill">{experience[selectedExp].period}</span>
-                    <span className="type-pill">{experience[selectedExp].type}</span>
+                  <div className="sheet-tenure-tag">
+                    <span className="tenure-badge">{experience[selectedExp].period}</span>
+                    <span className="type-badge">{experience[selectedExp].type}</span>
                   </div>
                 </div>
 
-                <div className="card-body-content">
-                  <h4 className="highlights-heading">
-                    <Sparkles size={16} className="accent-purple" />
-                    Key Responsibilities & Deliverables
+                <div className="sheet-body-content">
+                  <h4 className="deliverables-title">
+                    Key Engineering Deliverables & Milestones
                   </h4>
 
-                  <ul className="highlights-bullet-list">
+                  <ul className="sheet-bullets-list">
                     {experience[selectedExp].highlights.map((item, hi) => (
-                      <li key={hi} className="highlight-bullet-item">
-                        <CheckCircle2 size={16} className="bullet-check-icon" />
-                        <span>{item}</span>
+                      <li key={hi} className="sheet-bullet-item">
+                        <div className="bullet-point-box">
+                          <CheckCircle2 size={15} className="text-forest" />
+                        </div>
+                        <span className="bullet-text">{item}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <div className="exp-tech-section">
-                    <h5 className="tech-section-title">Technologies & Methodologies Applied:</h5>
-                    <div className="exp-tags-row">
+                  <div className="sheet-tech-footer">
+                    <span className="tech-footer-label">Stack & Methodologies Applied:</span>
+                    <div className="sheet-tech-tags">
                       {experience[selectedExp].technologies.map((t, ti) => (
-                        <span key={ti} className="exp-tech-tag">
+                        <span key={ti} className="sheet-tech-pill">
                           {t}
                         </span>
                       ))}

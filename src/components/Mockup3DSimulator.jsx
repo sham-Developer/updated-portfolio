@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Sliders, RotateCw, Eye, Sparkles, Layers, Box } from "lucide-react";
+import { Sliders, RotateCw, Layers, Box } from "lucide-react";
 import { soundManager } from "../utils/sound";
 
 const PATTERNS = [
-  { id: "hex", name: "Cyber Hex", gradient: "radial-gradient(circle at 50% 50%, #00f0ff 10%, transparent 60%)" },
-  { id: "circuit", name: "Tech Circuit", gradient: "linear-gradient(45deg, #a855f7 25%, transparent 25%), linear-gradient(-45deg, #00f0ff 25%, transparent 25%)" },
-  { id: "aurora", name: "Neon Aurora", gradient: "conic-gradient(from 180deg at 50% 50%, #00f0ff, #8b5cf6, #ec4899, #00f0ff)" },
-  { id: "matrix", name: "Matrix Grid", gradient: "repeating-linear-gradient(0deg, rgba(16,185,129,0.3) 0px, transparent 2px, transparent 15px)" }
+  { id: "hex", name: "Cobalt Grid", gradient: "radial-gradient(circle at 50% 50%, #1a44c2 15%, #ffffff 85%)" },
+  { id: "circuit", name: "Terracotta Line", gradient: "linear-gradient(45deg, #c84b31 25%, #f1efe8 25%, #f1efe8 50%, #c84b31 50%, #c84b31 75%, #f1efe8 75%)" },
+  { id: "aurora", name: "Bauhaus Block", gradient: "conic-gradient(from 180deg at 50% 50%, #1a44c2, #c84b31, #b45309, #1a44c2)" },
+  { id: "matrix", name: "Architectural Hatch", gradient: "repeating-linear-gradient(0deg, rgba(20,23,26,0.3) 0px, transparent 1px, transparent 12px)" }
 ];
 
 export default function Mockup3DSimulator() {
@@ -14,14 +14,7 @@ export default function Mockup3DSimulator() {
   const [scale, setScale] = useState(1);
   const [rotationX, setRotationX] = useState(15);
   const [rotationY, setRotationY] = useState(-20);
-  const [glowIntensity, setGlowIntensity] = useState(70);
-  const [wireframe, setWireframe] = useState(false);
-  const [activeModel, setActiveModel] = useState("headphone"); // "headphone", "device", "card"
-
-  const handlePatternChange = (pat) => {
-    soundManager.playClick();
-    setSelectedPattern(pat);
-  };
+  const [activeModel, setActiveModel] = useState("headphone");
 
   const resetView = () => {
     soundManager.playClick();
@@ -31,47 +24,46 @@ export default function Mockup3DSimulator() {
   };
 
   return (
-    <div className="mockup-sim-container">
-      <div className="mockup-sim-header">
-        <div className="mockup-sim-title">
-          <Box size={16} className="accent-cyan" />
-          <span>Interactive 3D Pattern & Mockup Visualizer</span>
+    <div className="mockup-editorial-box">
+      <div className="mockup-top-bar">
+        <div className="mockup-bar-title">
+          <Box size={16} className="text-cobalt" />
+          <span>Interactive 3D Product & Texture Visualizer</span>
         </div>
-        <div className="model-selector-pills">
+        <div className="model-pill-options">
           <button
-            className={`model-pill ${activeModel === "headphone" ? "active" : ""}`}
+            className={`model-tag ${activeModel === "headphone" ? "active" : ""}`}
             onClick={() => {
               soundManager.playHover();
               setActiveModel("headphone");
             }}
           >
-            AeroMesh Headset
+            Acoustic Headset
           </button>
           <button
-            className={`model-pill ${activeModel === "device" ? "active" : ""}`}
+            className={`model-tag ${activeModel === "device" ? "active" : ""}`}
             onClick={() => {
               soundManager.playHover();
               setActiveModel("device");
             }}
           >
-            Cyber Slate
+            Mobile Slate
           </button>
           <button
-            className={`model-pill ${activeModel === "card" ? "active" : ""}`}
+            className={`model-tag ${activeModel === "card" ? "active" : ""}`}
             onClick={() => {
               soundManager.playHover();
               setActiveModel("card");
             }}
           >
-            Holo Pass
+            Executive Pass
           </button>
         </div>
       </div>
 
-      <div className="mockup-sim-body">
-        {/* 3D Stage Viewport */}
+      <div className="mockup-stage-grid">
         <div
-          className="mockup-viewport"
+          className="mockup-viewport-stage"
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -81,114 +73,107 @@ export default function Mockup3DSimulator() {
           }}
         >
           <div
-            className={`mockup-3d-object ${wireframe ? "wireframe-mode" : ""}`}
+            className="mockup-3d-entity"
             style={{
-              transform: `perspective(800px) rotateX(${rotationX}deg) rotateY(${rotationY}deg) scale(${scale})`,
-              boxShadow: `0 20px 50px rgba(0, 240, 255, ${glowIntensity / 250})`
+              transform: `perspective(800px) rotateX(${rotationX}deg) rotateY(${rotationY}deg) scale(${scale})`
             }}
           >
             {activeModel === "headphone" && (
-              <div className="mockup-headphone-mesh">
+              <div className="headphone-editorial-mesh">
                 <div
-                  className="headphone-band"
+                  className="headphone-arch"
                   style={{
                     background: selectedPattern.gradient,
-                    backgroundSize: `${30 * scale}px ${30 * scale}px`
+                    backgroundSize: `${35 * scale}px ${35 * scale}px`
                   }}
-                >
-                  <div className="inner-mesh-glow" style={{ opacity: glowIntensity / 100 }}></div>
-                </div>
+                ></div>
                 <div
-                  className="headphone-cup left"
+                  className="earcup left"
                   style={{
                     background: selectedPattern.gradient,
-                    backgroundSize: `${20 * scale}px ${20 * scale}px`
+                    backgroundSize: `${25 * scale}px ${25 * scale}px`
                   }}
-                >
-                  <div className="cup-rim"></div>
-                </div>
+                ></div>
                 <div
-                  className="headphone-cup right"
+                  className="earcup right"
                   style={{
                     background: selectedPattern.gradient,
-                    backgroundSize: `${20 * scale}px ${20 * scale}px`
+                    backgroundSize: `${25 * scale}px ${25 * scale}px`
                   }}
-                >
-                  <div className="cup-rim"></div>
-                </div>
+                ></div>
               </div>
             )}
 
             {activeModel === "device" && (
               <div
-                className="mockup-device-mesh"
+                className="device-editorial-mesh"
                 style={{
                   background: selectedPattern.gradient,
                   backgroundSize: `${40 * scale}px ${40 * scale}px`
                 }}
               >
-                <div className="device-screen-overlay">
-                  <div className="device-notch"></div>
-                  <div className="device-content-mock">
-                    <span className="live-tag">LIVE 3D PREVIEW</span>
-                    <h3>{selectedPattern.name}</h3>
-                    <p>Real-Time CSS3D & WebGL Shader Emulation</p>
-                  </div>
+                <div className="device-screen-clean">
+                  <span className="live-pill">LIVE 3D RENDER</span>
+                  <h4>{selectedPattern.name}</h4>
+                  <p>WebGL / CSS 3D Shader Emulation</p>
                 </div>
               </div>
             )}
 
             {activeModel === "card" && (
               <div
-                className="mockup-card-mesh"
+                className="pass-editorial-mesh"
                 style={{
                   background: selectedPattern.gradient,
-                  backgroundSize: `${25 * scale}px ${25 * scale}px`
+                  backgroundSize: `${30 * scale}px ${30 * scale}px`
                 }}
               >
-                <div className="card-chip"></div>
-                <div className="card-info-text">
-                  <span className="card-logo">SHAM.DEV</span>
-                  <span className="card-sub">TEAM LEAD ARCHITECT</span>
+                <div className="pass-chip"></div>
+                <div className="pass-text-bottom">
+                  <span className="pass-brand">SHAM R</span>
+                  <span className="pass-sub">TEAM LEADER ARCHITECT</span>
                 </div>
               </div>
             )}
           </div>
 
-          <div className="viewport-overlay-hint">
-            <span>Hover / Drag across to rotate in 3D space</span>
+          <div className="viewport-drag-hint">
+            <span>Hover across viewport to rotate along 3D axes</span>
           </div>
 
-          <button className="viewport-reset-btn" onClick={resetView} title="Reset Angle">
-            <RotateCw size={12} />
+          <button className="btn-reset-angle" onClick={resetView} title="Reset Coordinates">
+            <RotateCw size={13} />
           </button>
         </div>
 
         {/* Controls Sidebar */}
-        <div className="mockup-controls-sidebar">
-          <div className="control-section">
-            <label className="section-label">
-              <Layers size={13} className="accent-cyan" />
-              <span>Pattern Texture Presets</span>
+        <div className="mockup-sidebar-controls">
+          <div className="control-block">
+            <label className="block-label">
+              <Layers size={13} className="text-cobalt" />
+              <span>Texture Pattern Presets</span>
             </label>
-            <div className="pattern-grid">
+            <div className="pattern-editorial-grid">
               {PATTERNS.map((pat) => (
                 <button
                   key={pat.id}
-                  className={`pattern-btn ${selectedPattern.id === pat.id ? "active" : ""}`}
-                  onClick={() => handlePatternChange(pat)}
+                  className={`pat-select-btn ${selectedPattern.id === pat.id ? "active" : ""}`}
+                  onClick={() => {
+                    soundManager.playClick();
+                    setSelectedPattern(pat);
+                  }}
                 >
-                  <span className="pattern-swatch" style={{ background: pat.gradient }}></span>
-                  <span className="pattern-label">{pat.name}</span>
+                  <span className="pat-swatch" style={{ background: pat.gradient }}></span>
+                  <span className="pat-text">{pat.name}</span>
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="control-section">
-            <div className="slider-label-row">
-              <span className="slider-title">Pattern Scale</span>
-              <span className="slider-val">{(scale * 100).toFixed(0)}%</span>
+          <div className="control-block">
+            <div className="slider-meta-line">
+              <span>Pattern Scale</span>
+              <span className="slider-number">{(scale * 100).toFixed(0)}%</span>
             </div>
             <input
               type="range"
@@ -197,37 +182,8 @@ export default function Mockup3DSimulator() {
               step="0.05"
               value={scale}
               onChange={(e) => setScale(parseFloat(e.target.value))}
-              className="custom-range"
+              className="editorial-range"
             />
-          </div>
-
-          <div className="control-section">
-            <div className="slider-label-row">
-              <span className="slider-title">Neon Emissive Glow</span>
-              <span className="slider-val">{glowIntensity}%</span>
-            </div>
-            <input
-              type="range"
-              min="10"
-              max="100"
-              value={glowIntensity}
-              onChange={(e) => setGlowIntensity(parseInt(e.target.value, 10))}
-              className="custom-range"
-            />
-          </div>
-
-          <div className="toggle-row">
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={wireframe}
-                onChange={(e) => {
-                  soundManager.playClick();
-                  setWireframe(e.target.checked);
-                }}
-              />
-              <span>Render Wireframe Grid</span>
-            </label>
           </div>
         </div>
       </div>

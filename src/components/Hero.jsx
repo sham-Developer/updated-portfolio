@@ -1,63 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { ArrowRight, Download, Terminal, Sparkles, Mail, Phone, MapPin, Code2, Layers, Cpu, CheckCircle } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, Download, Terminal, MapPin, CheckCircle, Sparkles, Building2, ShieldCheck, Layers, GitBranch, Cpu } from "lucide-react";
 import { Github, Linkedin } from "./Icons";
 import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
 import { personalInfo } from "../data/portfolioData";
 
-const ROLES = [
-  "Software Team Leader @ Fisto Tech",
-  "Full-Stack Web Architect (React & Node)",
-  "Native Android Developer (Kotlin & Java)",
-  "Computer Vision Engineer (Python & OpenCV)",
-  "Agile Sprint Leader (15+ Delivered Projects)"
-];
-
 export default function Hero({ onOpenTerminal, onOpenResume }) {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  // Typing effect
-  useEffect(() => {
-    const currentFull = ROLES[roleIndex];
-    let timeout;
-
-    if (!isDeleting && displayedText.length < currentFull.length) {
-      timeout = setTimeout(() => {
-        setDisplayedText(currentFull.slice(0, displayedText.length + 1));
-      }, 70);
-    } else if (!isDeleting && displayedText.length === currentFull.length) {
-      timeout = setTimeout(() => setIsDeleting(true), 2000);
-    } else if (isDeleting && displayedText.length > 0) {
-      timeout = setTimeout(() => {
-        setDisplayedText(currentFull.slice(0, displayedText.length - 1));
-      }, 35);
-    } else if (isDeleting && displayedText.length === 0) {
-      setIsDeleting(false);
-      setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [displayedText, isDeleting, roleIndex]);
-
-  const handleCardMouseMove = (e) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: x * 16, y: -y * 16 });
-  };
-
-  const handleCardMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-  };
+  const [activeTab, setActiveTab] = useState("overview");
 
   const triggerDownload = () => {
     soundManager.playSuccess();
     confetti({
-      particleCount: 90,
+      particleCount: 80,
       spread: 60,
       origin: { y: 0.7 }
     });
@@ -66,187 +20,209 @@ export default function Hero({ onOpenTerminal, onOpenResume }) {
 
   return (
     <section id="hero" className="hero-section">
-      <div className="hero-glow-blob top-left"></div>
-      <div className="hero-glow-blob bottom-right"></div>
-
-      <div className="hero-container">
-        {/* Left Column: Headline & Intro */}
-        <div className="hero-content">
-          <div className="hero-status-pill">
-            <span className="pulse-beacon"></span>
-            <span className="status-text">Software Team Leader • Ramanathapuram, Coimbatore</span>
+      <div className="hero-editorial-container">
+        {/* Top Meta Bar */}
+        <div className="hero-top-meta reveal-on-scroll">
+          <div className="location-stamp">
+            <span className="live-dot"></span>
+            <span>COIMBATORE, TAMIL NADU, INDIA</span>
+            <span className="meta-sep">•</span>
+            <span className="org-stamp">FISTO TECH PVT LTD</span>
           </div>
-
-          <h1 className="hero-main-title">
-            Hi, I'm <span className="gradient-text-shimmer">{personalInfo.name}</span>
-            <span className="hero-title-break">Engineering Scalable Web, Android & Vision Systems.</span>
-          </h1>
-
-          <div className="hero-role-rotator">
-            <span className="rotator-prefix">&gt; </span>
-            <span className="rotator-text">{displayedText}</span>
-            <span className="typing-cursor">_</span>
-          </div>
-
-          <p className="hero-bio-summary">
-            Software Developer with nearly 3 years of hands-on expertise building enterprise software.
-            Currently leading 5+ engineers at <strong>Fisto Tech</strong>, driving 15+ delivered client
-            solutions from technical requirements to production CI/CD deployments.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="hero-cta-group">
-            <a
-              href="#projects"
-              className="primary-hero-btn"
-              onClick={() => soundManager.playClick()}
-            >
-              <span>Explore Featured Projects</span>
-              <ArrowRight size={16} />
-            </a>
-
-            <button
-              className="secondary-hero-btn"
-              onClick={triggerDownload}
-            >
-              <Download size={16} />
-              <span>Get Curriculum Vitae</span>
-            </button>
-
-            <button
-              className="terminal-quick-btn"
-              onClick={() => {
-                soundManager.playClick();
-                onOpenTerminal();
-              }}
-              title="Open Terminal"
-            >
-              <Terminal size={16} />
-              <span>CLI</span>
-            </button>
-          </div>
-
-          {/* Social Links & Location Quick Bar */}
-          <div className="hero-social-bar">
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon-link"
-              title="GitHub Profile"
-              onClick={() => soundManager.playHover()}
-            >
-              <Github size={18} />
-              <span>GitHub</span>
-            </a>
-
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon-link"
-              title="LinkedIn Profile"
-              onClick={() => soundManager.playHover()}
-            >
-              <Linkedin size={18} />
-              <span>LinkedIn</span>
-            </a>
-
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="social-icon-link"
-              title="Direct Email"
-              onClick={() => soundManager.playHover()}
-            >
-              <Mail size={18} />
-              <span>{personalInfo.email}</span>
-            </a>
-
-            <div className="hero-location-pill">
-              <MapPin size={14} className="accent-cyan" />
-              <span>Coimbatore, TN</span>
-            </div>
+          <div className="experience-stamp">
+            <span>ROLE: <strong>SOFTWARE TEAM LEADER</strong></span>
+            <span className="meta-sep">•</span>
+            <span>EXP: <strong>NEARLY 3 YEARS</strong></span>
           </div>
         </div>
 
-        {/* Right Column: Interactive 3D Developer Card */}
-        <div className="hero-visual-col">
-          <div
-            className="holographic-dev-card"
-            onMouseMove={handleCardMouseMove}
-            onMouseLeave={handleCardMouseLeave}
-            style={{
-              transform: `perspective(1000px) rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`
-            }}
-          >
-            <div className="card-ambient-glow"></div>
+        {/* Hero Editorial Headline */}
+        <div className="hero-headline-wrapper reveal-on-scroll delay-100">
+          <h1 className="hero-editorial-title">
+            Architecting scalable <span className="title-italic-accent">web & mobile</span> software with rigorous engineering leadership.
+          </h1>
+        </div>
 
-            {/* Code Header Bar */}
-            <div className="card-top-bar">
-              <div className="card-traffic-lights">
-                <span className="light red"></span>
-                <span className="light yellow"></span>
-                <span className="light green"></span>
-              </div>
-              <span className="card-tab-name">ShamProfile.ts</span>
-              <span className="card-lang-tag">TypeScript / React</span>
+        {/* Subhead + Quick Pitch */}
+        <div className="hero-subhead-grid reveal-on-scroll delay-200">
+          <div className="hero-pitch-column">
+            <p className="hero-narrative-text">
+              Leading a team of 5+ developers building production-ready business applications, native Android workflows, and automated computer vision systems. Spearheaded 15+ successful client deliveries from requirement discovery to CI/CD releases.
+            </p>
+
+            {/* CTAs with editorial tactile buttons */}
+            <div className="hero-action-buttons">
+              <a
+                href="#projects"
+                className="btn-editorial-primary"
+                onClick={() => soundManager.playClick()}
+              >
+                <span>Explore Works & Live Demos</span>
+                <ArrowDownRight size={17} />
+              </a>
+
+              <button
+                className="btn-editorial-outline"
+                onClick={triggerDownload}
+              >
+                <Download size={16} />
+                <span>Curriculum Vitae</span>
+              </button>
+
+              <button
+                className="btn-editorial-cli"
+                onClick={() => {
+                  soundManager.playClick();
+                  onOpenTerminal();
+                }}
+                title="Launch Command Line"
+              >
+                <Terminal size={15} />
+                <span>CLI Terminal</span>
+              </button>
             </div>
 
-            {/* Code Body */}
-            <div className="card-code-body">
-              <div className="code-line">
-                <span className="syntax-keyword">const</span> <span className="syntax-var">leadEngineer</span> = &#123;
-              </div>
-              <div className="code-line indent-1">
-                <span className="syntax-prop">name</span>: <span className="syntax-string">"{personalInfo.name}"</span>,
-              </div>
-              <div className="code-line indent-1">
-                <span className="syntax-prop">currentRole</span>: <span className="syntax-string">"Software Team Leader"</span>,
-              </div>
-              <div className="code-line indent-1">
-                <span className="syntax-prop">company</span>: <span className="syntax-string">"Fisto Tech Pvt Ltd"</span>,
-              </div>
-              <div className="code-line indent-1">
-                <span className="syntax-prop">experience</span>: <span className="syntax-number">nearly 3 years</span>,
-              </div>
-              <div className="code-line indent-1">
-                <span className="syntax-prop">teamSize</span>: <span className="syntax-string">"5+ Engineers"</span>,
-              </div>
-              <div className="code-line indent-1">
-                <span className="syntax-prop">coreStack</span>: [
-              </div>
-              <div className="code-line indent-2">
-                <span className="syntax-string">"React.js"</span>, <span className="syntax-string">"Node.js"</span>, <span className="syntax-string">"Android"</span>, <span className="syntax-string">"OpenCV"</span>, <span className="syntax-string">"MySQL"</span>
-              </div>
-              <div className="code-line indent-1">],</div>
-              <div className="code-line indent-1">
-                <span className="syntax-prop">trackRecord</span>: &#123;
-              </div>
-              <div className="code-line indent-2">
-                <span className="syntax-prop">clientProjectsDelivered</span>: <span className="syntax-number">15</span>,
-              </div>
-              <div className="code-line indent-2">
-                <span className="syntax-prop">appsInProduction</span>: <span className="syntax-number">8</span>,
-              </div>
-              <div className="code-line indent-2">
-                <span className="syntax-prop">ciCdAutomation</span>: <span className="syntax-bool">true</span>
-              </div>
-              <div className="code-line indent-1">&#125;,</div>
-              <div className="code-line indent-1">
-                <span className="syntax-prop">isAvailableForImpact</span>: <span className="syntax-bool">true</span>
-              </div>
-              <div className="code-line">&#125;;</div>
-            </div>
+            {/* Direct Connect Pills */}
+            <div className="hero-channels-row">
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="channel-link"
+                onClick={() => soundManager.playHover()}
+              >
+                <Github size={16} />
+                <span>GitHub</span>
+                <ArrowUpRight size={12} className="corner-arrow" />
+              </a>
 
-            {/* Floating Quick Badges on Card */}
-            <div className="floating-badge badge-top-right">
-              <CheckCircle size={14} className="accent-green" />
-              <span>15+ Delivered Projects</span>
-            </div>
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="channel-link"
+                onClick={() => soundManager.playHover()}
+              >
+                <Linkedin size={16} />
+                <span>LinkedIn</span>
+                <ArrowUpRight size={12} className="corner-arrow" />
+              </a>
 
-            <div className="floating-badge badge-bottom-left">
-              <Cpu size={14} className="accent-cyan" />
-              <span>Full-Stack + Vision</span>
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="channel-link email-pill"
+                onClick={() => soundManager.playHover()}
+              >
+                <span>{personalInfo.email}</span>
+                <ArrowUpRight size={12} className="corner-arrow" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Architectural Dossier Card */}
+          <div className="hero-dossier-column">
+            <div className="dossier-card">
+              <div className="dossier-header">
+                <div className="dossier-header-left">
+                  <span className="file-badge">ENGINEERING DOSSIER</span>
+                  <span className="file-id">SHAM_R_ARCH_v2.6</span>
+                </div>
+                <div className="dossier-tabs">
+                  <button
+                    className={`dossier-tab-btn ${activeTab === "overview" ? "active" : ""}`}
+                    onClick={() => {
+                      soundManager.playHover();
+                      setActiveTab("overview");
+                    }}
+                  >
+                    Metrics
+                  </button>
+                  <button
+                    className={`dossier-tab-btn ${activeTab === "stack" ? "active" : ""}`}
+                    onClick={() => {
+                      soundManager.playHover();
+                      setActiveTab("stack");
+                    }}
+                  >
+                    Tech Stack
+                  </button>
+                </div>
+              </div>
+
+              {activeTab === "overview" ? (
+                <div className="dossier-body">
+                  <div className="dossier-metric-row">
+                    <div className="d-stat-box">
+                      <span className="d-num text-cobalt">15+</span>
+                      <span className="d-label">Delivered Projects</span>
+                      <span className="d-sub">End-to-end client solutions</span>
+                    </div>
+                    <div className="d-stat-box">
+                      <span className="d-num text-terracotta">8+</span>
+                      <span className="d-label">Live Deployments</span>
+                      <span className="d-sub">Cloud & Linux production</span>
+                    </div>
+                  </div>
+
+                  <div className="dossier-metric-row">
+                    <div className="d-stat-box">
+                      <span className="d-num text-forest">5+</span>
+                      <span className="d-label">Engineers Led</span>
+                      <span className="d-sub">Sprint cycles & code reviews</span>
+                    </div>
+                    <div className="d-stat-box">
+                      <span className="d-num text-ink">Nearly 3</span>
+                      <span className="d-label">Years In Production</span>
+                      <span className="d-sub">React, Node, Android, Vision</span>
+                    </div>
+                  </div>
+
+                  <div className="dossier-lead-note">
+                    <ShieldCheck size={16} className="text-cobalt" />
+                    <p>
+                      <strong>Current Mandate:</strong> Leading sprint velocity, architectural standards, and client deliverables at Fisto Tech.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="dossier-body stack-mode">
+                  <div className="dossier-stack-group">
+                    <span className="dossier-group-title">Primary Frontend:</span>
+                    <div className="dossier-pills">
+                      <span className="dpill">React.js</span>
+                      <span className="dpill">Next.js</span>
+                      <span className="dpill">JavaScript (ES6+)</span>
+                      <span className="dpill">Tailwind CSS</span>
+                    </div>
+                  </div>
+
+                  <div className="dossier-stack-group">
+                    <span className="dossier-group-title">Backend & APIs:</span>
+                    <div className="dossier-pills">
+                      <span className="dpill">Node.js</span>
+                      <span className="dpill">Express.js</span>
+                      <span className="dpill">RESTful Architecture</span>
+                      <span className="dpill">PHP</span>
+                      <span className="dpill">MySQL</span>
+                    </div>
+                  </div>
+
+                  <div className="dossier-stack-group">
+                    <span className="dossier-group-title">Mobile & Vision:</span>
+                    <div className="dossier-pills">
+                      <span className="dpill">Android Studio</span>
+                      <span className="dpill">Kotlin / Java</span>
+                      <span className="dpill">OpenCV (Python)</span>
+                      <span className="dpill">GPS / Telemetry</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="dossier-footer">
+                <span className="status-indicator"></span>
+                <span>STATUS: ACTIVE & DELIVERING ENTERPRISE VALUE</span>
+              </div>
             </div>
           </div>
         </div>

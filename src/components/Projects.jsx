@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Play, ArrowUpRight, Sparkles, Filter, Code2, Layers, Cpu, Smartphone, Box, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Play, Eye, Sparkles, Filter, CheckCircle2, Layers, Cpu, Box, Smartphone } from "lucide-react";
 import { soundManager } from "../utils/sound";
 import { projects } from "../data/portfolioData";
 
@@ -15,24 +15,24 @@ export default function Projects({ onSelectProject }) {
   return (
     <section id="projects" className="projects-section">
       <div className="section-container">
-        {/* Section Header */}
-        <div className="section-header-centered">
-          <span className="section-subtitle">INNOVATION & ARCHITECTURE</span>
+        {/* Editorial Section Header */}
+        <div className="section-header-centered reveal-on-scroll">
+          <span className="section-label-chip">ARCHIVE & DELIVERABLES</span>
           <h2 className="section-main-title">
-            Featured <span className="gradient-text-cyan">Engineering Projects</span>
+            Selected Works & <span className="text-cobalt">Live Systems</span>
           </h2>
           <p className="section-desc">
-            Production-grade web platforms, native Android applications, and real-time computer vision systems. Test live interactive demos directly in your browser.
+            Production-grade systems ranging from industrial computer vision inspection rigs to multi-tenant CRM suites and 3D pattern platforms. Launch live interactive simulations directly in your browser.
           </p>
         </div>
 
-        {/* Filter Bar */}
-        <div className="projects-filter-bar">
-          <div className="filter-pill-container">
+        {/* Filter Bar with bespoke pill buttons */}
+        <div className="projects-filter-row reveal-on-scroll delay-100">
+          <div className="filter-button-group">
             {CATEGORIES.map((cat, i) => (
               <button
                 key={i}
-                className={`filter-tab ${activeFilter === cat ? "active" : ""}`}
+                className={`filter-button ${activeFilter === cat ? "active" : ""}`}
                 onClick={() => {
                   soundManager.playClick();
                   setActiveFilter(cat);
@@ -43,19 +43,19 @@ export default function Projects({ onSelectProject }) {
               </button>
             ))}
           </div>
+          <span className="results-counter">Showing {filteredProjects.length} Systems</span>
         </div>
 
-        {/* Projects Grid */}
-        <div className="projects-grid">
-          {filteredProjects.map((project) => (
-            <div
+        {/* Editorial Projects Grid */}
+        <div className="editorial-projects-grid">
+          {filteredProjects.map((project, idx) => (
+            <article
               key={project.id}
-              className="project-card"
-              onMouseEnter={() => soundManager.playHover()}
+              className={`project-editorial-card reveal-on-scroll delay-${(idx % 3) * 100}`}
             >
-              {/* Card Thumbnail / Preview Banner */}
+              {/* Media / Visual Box */}
               <div
-                className="project-thumb-area"
+                className="project-media-frame"
                 onClick={() => {
                   soundManager.playClick();
                   onSelectProject(project);
@@ -65,48 +65,50 @@ export default function Projects({ onSelectProject }) {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="project-img"
+                    className="project-image-view"
                     loading="lazy"
                   />
                 ) : project.id === "alloy-wheel-inspection" ? (
-                  <div className="vision-thumb-card">
-                    <div className="vision-wheel-graphic">
-                      <div className="wheel-rim-outer">
-                        <div className="wheel-hub-center"></div>
-                        <div className="wheel-laser-beam"></div>
-                      </div>
+                  <div className="cv-editorial-preview">
+                    <div className="cv-radar-circle">
+                      <div className="cv-inner-wheel"></div>
+                      <div className="cv-scan-laser"></div>
                     </div>
-                    <div className="vision-stream-tag">
-                      <Cpu size={12} className="accent-cyan" />
-                      <span>LIVE OPENCV STREAM</span>
+                    <div className="cv-live-badge">
+                      <span className="beacon-green"></span>
+                      <span>OPENCV REAL-TIME ENGINE</span>
                     </div>
                   </div>
                 ) : (
-                  <div className="distribution-thumb-card">
-                    <div className="flow-lines-graphic">
-                      <Layers size={36} className="accent-purple" />
-                      <span>ENTERPRISE INVOICING & DISTRIBUTION</span>
-                    </div>
+                  <div className="dist-editorial-preview">
+                    <Layers size={38} className="text-cobalt" />
+                    <span className="dist-title-stamp">ENTERPRISE SUPPLY & INVOICING</span>
                   </div>
                 )}
 
-                <div className="thumb-hover-overlay">
-                  <div className="launch-demo-pill">
-                    <Play size={14} />
-                    <span>Launch Interactive Demo</span>
-                  </div>
+                {/* Floating Category Tag */}
+                <div className="project-category-stamp">
+                  <span>{project.category}</span>
                 </div>
 
-                <div className="card-top-tags">
-                  <span className="cat-badge">{project.category}</span>
-                  {project.badge && <span className="feat-badge">{project.badge}</span>}
+                {/* Action Hover Strip */}
+                <div className="media-hover-strip">
+                  <span className="strip-text">
+                    <Play size={13} />
+                    Launch Interactive Simulator
+                  </span>
                 </div>
               </div>
 
-              {/* Card Content */}
-              <div className="project-card-content">
+              {/* Text & Content Block */}
+              <div className="project-editorial-content">
+                <div className="project-header-meta">
+                  <span className="project-index">0{idx + 1} / 0{projects.length}</span>
+                  {project.badge && <span className="project-badge-tag">{project.badge}</span>}
+                </div>
+
                 <h3
-                  className="project-card-title"
+                  className="project-heading-title"
                   onClick={() => {
                     soundManager.playClick();
                     onSelectProject(project);
@@ -115,48 +117,51 @@ export default function Projects({ onSelectProject }) {
                   {project.title}
                 </h3>
 
-                <p className="project-card-summary">{project.summary}</p>
+                <p className="project-narrative-summary">
+                  {project.summary}
+                </p>
 
-                {/* Tech Tags */}
-                <div className="project-card-tech-cloud">
+                {/* Tech Pills */}
+                <div className="project-tech-ribbon">
                   {project.technologies.slice(0, 4).map((tech, i) => (
-                    <span key={i} className="tech-badge">
+                    <span key={i} className="tech-editorial-pill">
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 4 && (
-                    <span className="tech-badge more">
+                    <span className="tech-editorial-pill more">
                       +{project.technologies.length - 4}
                     </span>
                   )}
                 </div>
 
-                {/* Card Action Buttons */}
-                <div className="project-card-actions">
+                {/* Card Bottom CTA */}
+                <div className="project-editorial-actions">
                   <button
-                    className="demo-action-btn primary"
+                    className="btn-interactive-demo"
                     onClick={() => {
                       soundManager.playClick();
                       onSelectProject(project);
                     }}
                   >
                     <Play size={14} />
-                    <span>Interactive Demo</span>
+                    <span>Run Simulation</span>
                   </button>
 
                   <button
-                    className="demo-action-btn details"
+                    className="btn-deep-dive"
                     onClick={() => {
                       soundManager.playClick();
                       onSelectProject(project);
                     }}
-                    title="View System Architecture"
+                    title="View Architectural Breakdown"
                   >
-                    <ArrowUpRight size={16} />
+                    <span>Architecture</span>
+                    <ArrowUpRight size={14} />
                   </button>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

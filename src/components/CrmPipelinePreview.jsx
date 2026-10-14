@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Users, MapPin, CheckCircle2, TrendingUp, Bell, ArrowRight, ShieldCheck, UserCheck } from "lucide-react";
+import { Users, MapPin, CheckCircle2, TrendingUp, ArrowRight, ShieldCheck } from "lucide-react";
 import { soundManager } from "../utils/sound";
 
 export default function CrmPipelinePreview() {
@@ -9,7 +9,7 @@ export default function CrmPipelinePreview() {
     { id: "L-103", name: "Nova Corp Logistics", value: "$62,000", rep: "Marcus Vance", stage: "qualified", location: "West Port" }
   ]);
 
-  const [activeTab, setActiveTab] = useState("pipeline"); // "pipeline" | "gps"
+  const [activeTab, setActiveTab] = useState("pipeline");
 
   const advanceStage = (id) => {
     soundManager.playClick();
@@ -26,29 +26,29 @@ export default function CrmPipelinePreview() {
   };
 
   return (
-    <div className="crm-preview-container">
-      <div className="crm-preview-header">
-        <div className="crm-title-meta">
-          <div className="crm-badge">
-            <span className="live-pulse-dot"></span>
+    <div className="crm-editorial-box">
+      <div className="crm-top-strip">
+        <div className="crm-title-left">
+          <div className="crm-live-badge">
+            <span className="dot-active"></span>
             <span>ENTERPRISE CRM CLUSTER</span>
           </div>
-          <h4>Web & Android Unified Operations Suite</h4>
+          <h4 className="crm-main-title">Operations & Lead Pipeline Architecture</h4>
         </div>
 
-        <div className="crm-tabs">
+        <div className="crm-tab-selectors">
           <button
-            className={`crm-tab-btn ${activeTab === "pipeline" ? "active" : ""}`}
+            className={`crm-mode-btn ${activeTab === "pipeline" ? "active" : ""}`}
             onClick={() => {
               soundManager.playClick();
               setActiveTab("pipeline");
             }}
           >
             <TrendingUp size={14} />
-            <span>Lead Pipelines</span>
+            <span>Kanban Pipeline</span>
           </button>
           <button
-            className={`crm-tab-btn ${activeTab === "gps" ? "active" : ""}`}
+            className={`crm-mode-btn ${activeTab === "gps" ? "active" : ""}`}
             onClick={() => {
               soundManager.playClick();
               setActiveTab("gps");
@@ -61,88 +61,85 @@ export default function CrmPipelinePreview() {
       </div>
 
       {activeTab === "pipeline" ? (
-        <div className="crm-pipeline-grid">
-          <div className="pipeline-column">
-            <div className="column-header">
-              <span className="col-title">Qualified Leads</span>
-              <span className="col-badge">
-                {pipeline.filter((l) => l.stage === "qualified").length}
-              </span>
+        <div className="crm-kanban-columns">
+          {/* Column 1 */}
+          <div className="kanban-col">
+            <div className="col-headline">
+              <span className="col-name">Qualified Leads</span>
+              <span className="col-counter">{pipeline.filter((l) => l.stage === "qualified").length}</span>
             </div>
             {pipeline
               .filter((l) => l.stage === "qualified")
               .map((lead) => (
-                <div key={lead.id} className="lead-card">
-                  <div className="lead-title-row">
-                    <span className="lead-id">{lead.id}</span>
-                    <span className="lead-val">{lead.value}</span>
+                <div key={lead.id} className="lead-white-card">
+                  <div className="lead-top-row">
+                    <span className="lead-code">{lead.id}</span>
+                    <span className="lead-worth text-forest">{lead.value}</span>
                   </div>
-                  <div className="lead-name">{lead.name}</div>
-                  <div className="lead-footer">
-                    <span className="lead-rep">Rep: {lead.rep}</span>
+                  <h5 className="lead-account-name">{lead.name}</h5>
+                  <div className="lead-action-row">
+                    <span className="lead-rep-name">Rep: {lead.rep}</span>
                     <button
-                      className="advance-btn"
+                      className="btn-advance-lead"
                       onClick={() => advanceStage(lead.id)}
-                      title="Advance stage"
+                      title="Advance to Negotiation"
                     >
                       <span>Move</span>
-                      <ArrowRight size={12} />
+                      <ArrowRight size={11} />
                     </button>
                   </div>
                 </div>
               ))}
           </div>
 
-          <div className="pipeline-column">
-            <div className="column-header">
-              <span className="col-title">Negotiation</span>
-              <span className="col-badge">
-                {pipeline.filter((l) => l.stage === "negotiation").length}
-              </span>
+          {/* Column 2 */}
+          <div className="kanban-col">
+            <div className="col-headline">
+              <span className="col-name">Negotiation</span>
+              <span className="col-counter">{pipeline.filter((l) => l.stage === "negotiation").length}</span>
             </div>
             {pipeline
               .filter((l) => l.stage === "negotiation")
               .map((lead) => (
-                <div key={lead.id} className="lead-card highlight">
-                  <div className="lead-title-row">
-                    <span className="lead-id">{lead.id}</span>
-                    <span className="lead-val">{lead.value}</span>
+                <div key={lead.id} className="lead-white-card in-negotiation">
+                  <div className="lead-top-row">
+                    <span className="lead-code">{lead.id}</span>
+                    <span className="lead-worth text-terracotta">{lead.value}</span>
                   </div>
-                  <div className="lead-name">{lead.name}</div>
-                  <div className="lead-footer">
-                    <span className="lead-rep">Rep: {lead.rep}</span>
+                  <h5 className="lead-account-name">{lead.name}</h5>
+                  <div className="lead-action-row">
+                    <span className="lead-rep-name">Rep: {lead.rep}</span>
                     <button
-                      className="advance-btn"
+                      className="btn-advance-lead"
                       onClick={() => advanceStage(lead.id)}
-                      title="Advance stage"
+                      title="Convert to Onboarding"
                     >
                       <span>Convert</span>
-                      <ArrowRight size={12} />
+                      <ArrowRight size={11} />
                     </button>
                   </div>
                 </div>
               ))}
           </div>
 
-          <div className="pipeline-column">
-            <div className="column-header">
-              <span className="col-title">Live Onboarding</span>
-              <span className="col-badge success">
-                {pipeline.filter((l) => l.stage === "onboarding").length}
-              </span>
+          {/* Column 3 */}
+          <div className="kanban-col">
+            <div className="col-headline">
+              <span className="col-name">Live Onboarding</span>
+              <span className="col-counter success">{pipeline.filter((l) => l.stage === "onboarding").length}</span>
             </div>
             {pipeline
               .filter((l) => l.stage === "onboarding")
               .map((lead) => (
-                <div key={lead.id} className="lead-card completed">
-                  <div className="lead-title-row">
-                    <span className="lead-id">{lead.id}</span>
-                    <span className="lead-val">{lead.value}</span>
+                <div key={lead.id} className="lead-white-card onboarded">
+                  <div className="lead-top-row">
+                    <span className="lead-code">{lead.id}</span>
+                    <span className="lead-worth text-forest">{lead.value}</span>
                   </div>
-                  <div className="lead-name">{lead.name}</div>
-                  <div className="lead-footer">
-                    <span className="lead-rep">Rep: {lead.rep}</span>
-                    <span className="status-tag success">
+                  <h5 className="lead-account-name">{lead.name}</h5>
+                  <div className="lead-action-row">
+                    <span className="lead-rep-name">Rep: {lead.rep}</span>
+                    <span className="status-onboarded-pill">
                       <CheckCircle2 size={12} /> Onboarded
                     </span>
                   </div>
@@ -151,40 +148,39 @@ export default function CrmPipelinePreview() {
           </div>
         </div>
       ) : (
-        <div className="crm-gps-view">
-          <div className="gps-map-mockup">
-            <div className="gps-radar-sweep"></div>
-            <div className="gps-marker-point m1">
-              <div className="marker-pulse"></div>
-              <div className="marker-popup">
+        <div className="crm-gps-editorial-view">
+          <div className="gps-map-canvas-frame">
+            <div className="gps-point p1">
+              <span className="pulse-point"></span>
+              <div className="gps-card-popup">
                 <strong>Alex Chen</strong>
-                <span>At: Apex Tech (On-Site)</span>
+                <span>Apex Tech (On-Site)</span>
               </div>
             </div>
-            <div className="gps-marker-point m2">
-              <div className="marker-pulse"></div>
-              <div className="marker-popup">
+            <div className="gps-point p2">
+              <span className="pulse-point"></span>
+              <div className="gps-card-popup">
                 <strong>Priya Nair</strong>
-                <span>At: Tech Park 2 (In Transit)</span>
+                <span>Tech Park 2 (In Transit)</span>
               </div>
             </div>
-            <div className="gps-marker-point m3">
-              <div className="marker-pulse"></div>
-              <div className="marker-popup">
+            <div className="gps-point p3">
+              <span className="pulse-point"></span>
+              <div className="gps-card-popup">
                 <strong>Marcus Vance</strong>
-                <span>At: West Port (Client Demo)</span>
+                <span>West Port (Client Demo)</span>
               </div>
             </div>
           </div>
-          <div className="gps-legend">
-            <div className="legend-item">
-              <span className="dot online"></span>
-              <span>3 Agents Tracked in Real-Time via Android App</span>
-            </div>
-            <div className="legend-item">
-              <ShieldCheck size={14} className="accent-cyan" />
-              <span>Encrypted Geo-Fencing & Battery Optimization</span>
-            </div>
+          <div className="gps-footer-legend">
+            <span className="legend-indicator">
+              <span className="dot-green"></span>
+              3 Agents Active on Android App with Background Geolocation Sync
+            </span>
+            <span className="legend-sec">
+              <ShieldCheck size={14} className="text-cobalt" />
+              AES-256 Encrypted Telemetry
+            </span>
           </div>
         </div>
       )}
