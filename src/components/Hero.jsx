@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { ArrowDownRight, ArrowUpRight, Download, Terminal, MapPin, CheckCircle, Sparkles, Building2, ShieldCheck, Layers, GitBranch, Cpu } from "lucide-react";
+import React from "react";
+import { ArrowDownRight, ArrowUpRight, Download, Terminal, ChevronDown } from "lucide-react";
 import { Github, Linkedin } from "./Icons";
 import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
 import { personalInfo } from "../data/portfolioData";
 
 export default function Hero({ onOpenTerminal, onOpenResume }) {
-  const [activeTab, setActiveTab] = useState("overview");
-
   const triggerDownload = () => {
     soundManager.playSuccess();
     confetti({
@@ -19,213 +17,160 @@ export default function Hero({ onOpenTerminal, onOpenResume }) {
   };
 
   return (
-    <section id="hero" className="hero-section">
-      <div className="hero-editorial-container">
-        {/* Top Meta Bar */}
-        <div className="hero-top-meta reveal-on-scroll">
-          <div className="location-stamp">
-            <span className="live-dot"></span>
-            <span>COIMBATORE, TAMIL NADU, INDIA</span>
-            <span className="meta-sep">•</span>
-            <span className="org-stamp">FISTO TECH PVT LTD</span>
-          </div>
-          <div className="experience-stamp">
-            <span>ROLE: <strong>SOFTWARE TEAM LEADER</strong></span>
-            <span className="meta-sep">•</span>
-            <span>EXP: <strong>NEARLY 3 YEARS</strong></span>
-          </div>
-        </div>
+    <section id="hero" className="hero-obsidian-section">
+      <div className="hero-grid-ambient-bg"></div>
 
-        {/* Hero Editorial Headline */}
-        <div className="hero-headline-wrapper reveal-on-scroll delay-100">
-          <h1 className="hero-editorial-title">
-            Architecting scalable <span className="title-italic-accent">web & mobile</span> software with rigorous engineering leadership.
+      <div className="hero-inner-container">
+        {/* Left Column (Editorial Typography & Meta) */}
+        <div className="hero-text-col reveal-on-scroll">
+          {/* Overhead Category Badge */}
+          <div className="overhead-badge">
+            <span className="badge-dot"></span>
+            <span className="badge-text">ENGINEERING / ARCHITECTURE / LEADERSHIP</span>
+          </div>
+
+          {/* Monolithic Display Headline */}
+          <h1 className="hero-display-headline">
+            Building systems that stand the <span className="serif-accent">test of scale</span>.
           </h1>
-        </div>
 
-        {/* Subhead + Quick Pitch */}
-        <div className="hero-subhead-grid reveal-on-scroll delay-200">
-          <div className="hero-pitch-column">
-            <p className="hero-narrative-text">
-              Leading a team of 5+ developers building production-ready business applications, native Android workflows, and automated computer vision systems. Spearheaded 15+ successful client deliveries from requirement discovery to CI/CD releases.
-            </p>
+          {/* Narrative Sub-description */}
+          <p className="hero-narrative-lead">
+            Software Developer and Team Leader architecting resilient full-stack systems, native Android enterprise solutions, interactive 3D WebGL platforms, and real-time computer vision pipelines.
+          </p>
 
-            {/* CTAs with editorial tactile buttons */}
-            <div className="hero-action-buttons">
-              <a
-                href="#projects"
-                className="btn-editorial-primary"
-                onClick={() => soundManager.playClick()}
-              >
-                <span>Explore Works & Live Demos</span>
-                <ArrowDownRight size={17} />
-              </a>
+          {/* CTA Action Row */}
+          <div className="hero-actions-row">
+            <a
+              href="#projects"
+              className="btn-gold-primary"
+              onClick={() => soundManager.playClick()}
+            >
+              <span>EXPLORE SELECTED WORK ↘</span>
+            </a>
 
-              <button
-                className="btn-editorial-outline"
-                onClick={triggerDownload}
-              >
-                <Download size={16} />
-                <span>Curriculum Vitae</span>
-              </button>
+            <a
+              href="#contact"
+              className="btn-gold-ghost"
+              onClick={() => soundManager.playClick()}
+            >
+              <span>LET'S CONNECT ↗</span>
+            </a>
 
-              <button
-                className="btn-editorial-cli"
-                onClick={() => {
-                  soundManager.playClick();
-                  onOpenTerminal();
-                }}
-                title="Launch Command Line"
-              >
-                <Terminal size={15} />
-                <span>CLI Terminal</span>
-              </button>
-            </div>
+            <button
+              className="btn-gold-outline-sm"
+              onClick={triggerDownload}
+              title="View & Download Curriculum Vitae"
+            >
+              <Download size={14} />
+              <span>CV</span>
+            </button>
 
-            {/* Direct Connect Pills */}
-            <div className="hero-channels-row">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="channel-link"
-                onClick={() => soundManager.playHover()}
-              >
-                <Github size={16} />
-                <span>GitHub</span>
-                <ArrowUpRight size={12} className="corner-arrow" />
-              </a>
-
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="channel-link"
-                onClick={() => soundManager.playHover()}
-              >
-                <Linkedin size={16} />
-                <span>LinkedIn</span>
-                <ArrowUpRight size={12} className="corner-arrow" />
-              </a>
-
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="channel-link email-pill"
-                onClick={() => soundManager.playHover()}
-              >
-                <span>{personalInfo.email}</span>
-                <ArrowUpRight size={12} className="corner-arrow" />
-              </a>
-            </div>
+            <button
+              className="btn-gold-cli-sm"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenTerminal();
+              }}
+              title="Launch CLI Terminal (Ctrl+K)"
+            >
+              <Terminal size={14} />
+              <span>CLI</span>
+            </button>
           </div>
 
-          {/* Right Column: Architectural Dossier Card */}
-          <div className="hero-dossier-column">
-            <div className="dossier-card">
-              <div className="dossier-header">
-                <div className="dossier-header-left">
-                  <span className="file-badge">ENGINEERING DOSSIER</span>
-                  <span className="file-id">SHAM_R_ARCH_v2.6</span>
-                </div>
-                <div className="dossier-tabs">
-                  <button
-                    className={`dossier-tab-btn ${activeTab === "overview" ? "active" : ""}`}
-                    onClick={() => {
-                      soundManager.playHover();
-                      setActiveTab("overview");
-                    }}
-                  >
-                    Metrics
-                  </button>
-                  <button
-                    className={`dossier-tab-btn ${activeTab === "stack" ? "active" : ""}`}
-                    onClick={() => {
-                      soundManager.playHover();
-                      setActiveTab("stack");
-                    }}
-                  >
-                    Tech Stack
-                  </button>
-                </div>
-              </div>
+          {/* Live Telemetry Status Line */}
+          <div className="hero-telemetry-row">
+            <span className="telemetry-beacon">
+              <span className="telemetry-ping"></span>
+              <span className="telemetry-core"></span>
+            </span>
+            <span className="telemetry-label">
+              CURRENTLY LEADING ENGINEERING PODS & DELIVERING HIGH-SCALE SOFTWARE AT FISTO TECH
+            </span>
+          </div>
 
-              {activeTab === "overview" ? (
-                <div className="dossier-body">
-                  <div className="dossier-metric-row">
-                    <div className="d-stat-box">
-                      <span className="d-num text-cobalt">15+</span>
-                      <span className="d-label">Delivered Projects</span>
-                      <span className="d-sub">End-to-end client solutions</span>
-                    </div>
-                    <div className="d-stat-box">
-                      <span className="d-num text-terracotta">8+</span>
-                      <span className="d-label">Live Deployments</span>
-                      <span className="d-sub">Cloud & Linux production</span>
-                    </div>
-                  </div>
+          {/* Social Channels Row */}
+          <div className="hero-social-strip">
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-social-link"
+              onClick={() => soundManager.playHover()}
+            >
+              <Github size={15} />
+              <span>GITHUB</span>
+              <ArrowUpRight size={11} />
+            </a>
 
-                  <div className="dossier-metric-row">
-                    <div className="d-stat-box">
-                      <span className="d-num text-forest">5+</span>
-                      <span className="d-label">Engineers Led</span>
-                      <span className="d-sub">Sprint cycles & code reviews</span>
-                    </div>
-                    <div className="d-stat-box">
-                      <span className="d-num text-ink">Nearly 3</span>
-                      <span className="d-label">Years In Production</span>
-                      <span className="d-sub">React, Node, Android, Vision</span>
-                    </div>
-                  </div>
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-social-link"
+              onClick={() => soundManager.playHover()}
+            >
+              <Linkedin size={15} />
+              <span>LINKEDIN</span>
+              <ArrowUpRight size={11} />
+            </a>
 
-                  <div className="dossier-lead-note">
-                    <ShieldCheck size={16} className="text-cobalt" />
-                    <p>
-                      <strong>Current Mandate:</strong> Leading sprint velocity, architectural standards, and client deliverables at Fisto Tech.
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <div className="dossier-body stack-mode">
-                  <div className="dossier-stack-group">
-                    <span className="dossier-group-title">Primary Frontend:</span>
-                    <div className="dossier-pills">
-                      <span className="dpill">React.js</span>
-                      <span className="dpill">Next.js</span>
-                      <span className="dpill">JavaScript (ES6+)</span>
-                      <span className="dpill">Tailwind CSS</span>
-                    </div>
-                  </div>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="hero-social-link"
+              onClick={() => soundManager.playHover()}
+            >
+              <span>{personalInfo.email}</span>
+              <ArrowUpRight size={11} />
+            </a>
+          </div>
+        </div>
 
-                  <div className="dossier-stack-group">
-                    <span className="dossier-group-title">Backend & APIs:</span>
-                    <div className="dossier-pills">
-                      <span className="dpill">Node.js</span>
-                      <span className="dpill">Express.js</span>
-                      <span className="dpill">RESTful Architecture</span>
-                      <span className="dpill">PHP</span>
-                      <span className="dpill">MySQL</span>
-                    </div>
-                  </div>
+        {/* Right Column (Precision 3D Machined Engineering Sculpture) */}
+        <div className="hero-visual-col reveal-on-scroll delay-100">
+          <div className="hero-artwork-frame">
+            {/* Top Coordinate Label */}
+            <div className="artwork-meta-tag top-left">
+              // SYS_REF.01 [SHAM_POD]
+            </div>
+            <div className="artwork-meta-tag bottom-right">
+              REAL-TIME / 15+ DELIVERIES • 99.9% UPTIME
+            </div>
 
-                  <div className="dossier-stack-group">
-                    <span className="dossier-group-title">Mobile & Vision:</span>
-                    <div className="dossier-pills">
-                      <span className="dpill">Android Studio</span>
-                      <span className="dpill">Kotlin / Java</span>
-                      <span className="dpill">OpenCV (Python)</span>
-                      <span className="dpill">GPS / Telemetry</span>
-                    </div>
-                  </div>
-                </div>
-              )}
+            {/* High-Resolution Machined 3D Render Image */}
+            <div className="artwork-image-wrapper">
+              <img
+                src="/assets/hero_sculpture.png"
+                alt="Architectural metallic engineering sculpture with orbital geometry in titanium and gold"
+                className="artwork-image"
+                loading="eager"
+              />
+              <div className="artwork-overlay-gradient"></div>
 
-              <div className="dossier-footer">
-                <span className="status-indicator"></span>
-                <span>STATUS: ACTIVE & DELIVERING ENTERPRISE VALUE</span>
+              {/* Monospace Technical Overlay Tag */}
+              <div className="artwork-caption-box">
+                <span className="caption-category">ARCHITECTURE / 01</span>
+                <span className="caption-metric">SYSTEM INTEGRITY: OPTIMAL</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Bottom Architectural Bar */}
+      <div className="hero-bottom-bar reveal-on-scroll delay-200">
+        <div className="bar-location">
+          COIMBATORE, TAMIL NADU, INDIA // AVAILABLE FOR LEADERSHIP & ARCHITECTURAL ROLES
+        </div>
+        <a
+          href="#stats"
+          className="bar-scroll-prompt"
+          onClick={() => soundManager.playHover()}
+        >
+          <span>SCROLL TO DISCOVER</span>
+          <ChevronDown size={14} className="bounce-arrow" />
+        </a>
       </div>
     </section>
   );

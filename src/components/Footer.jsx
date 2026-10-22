@@ -1,6 +1,5 @@
 import React from "react";
-import { ArrowUp, Mail, Sparkles, Terminal } from "lucide-react";
-import { Github, Linkedin } from "./Icons";
+import { ArrowUp } from "lucide-react";
 import { soundManager } from "../utils/sound";
 import { personalInfo } from "../data/portfolioData";
 
@@ -11,89 +10,59 @@ export default function Footer({ onOpenTerminal, onOpenResume }) {
   };
 
   return (
-    <footer className="editorial-footer">
-      <div className="footer-top-accent-line"></div>
-
-      <div className="footer-container">
-        <div className="footer-main-row">
-          <div className="footer-brand-column">
-            <div className="footer-monogram">
-              <span className="mono-letter">S</span>
-              <span className="mono-name">SHAM R</span>
+    <footer className="footer-ivory-section">
+      <div className="section-container">
+        <div className="footer-main-flex-row">
+          {/* Monogram & Tagline */}
+          <div className="footer-brand-info">
+            <div className="footer-brand-header">
+              <div className="footer-monogram-box">SR</div>
+              <span className="footer-name-title">SHAM R</span>
             </div>
-            <p className="footer-pitch-text">
-              Software Developer & Team Leader based in Coimbatore, Tamil Nadu. Engineering high-performance web applications, native Android software, and automated computer vision systems.
+            <p className="footer-sub-tagline">
+              Software Developer & Team Leader. Designed around systems. Built for scale.
             </p>
           </div>
 
-          <div className="footer-links-grid">
-            <div className="footer-links-col">
-              <h5>Index</h5>
-              <a href="#hero">Overview</a>
-              <a href="#projects">Selected Works</a>
-              <a href="#experience">Career History</a>
-              <a href="#about">Philosophy</a>
-              <a href="#skills">Tech Arsenal</a>
-            </div>
-
-            <div className="footer-links-col">
-              <h5>Utilities</h5>
-              <button
-                className="footer-link-btn"
-                onClick={() => {
-                  soundManager.playClick();
-                  onOpenResume();
-                }}
-              >
-                Curriculum Vitae
-              </button>
-              <button
-                className="footer-link-btn"
-                onClick={() => {
-                  soundManager.playClick();
-                  onOpenTerminal();
-                }}
-              >
-                CLI Terminal (⌘K)
-              </button>
-              <a href="#contact">Dispatch Inquiry</a>
-            </div>
-
-            <div className="footer-links-col">
-              <h5>Network</h5>
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-              <a href={`mailto:${personalInfo.email}`}>Email</a>
-            </div>
+          {/* Navigation Links */}
+          <div className="footer-nav-links-row">
+            <a href="#about" className="footer-nav-link" onClick={() => soundManager.playHover()}>
+              About
+            </a>
+            <a href="#projects" className="footer-nav-link" onClick={() => soundManager.playHover()}>
+              Work
+            </a>
+            <a href="#experience" className="footer-nav-link" onClick={() => soundManager.playHover()}>
+              Experience
+            </a>
+            <a href="#skills" className="footer-nav-link" onClick={() => soundManager.playHover()}>
+              Skills
+            </a>
+            <a href="#contact" className="footer-nav-link" onClick={() => soundManager.playHover()}>
+              Contact
+            </a>
+            <button
+              className="footer-nav-btn-link"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenResume();
+              }}
+            >
+              Resume
+            </button>
+            <button
+              className="footer-back-to-top"
+              onClick={scrollToTop}
+            >
+              <span>Back to top</span>
+              <ArrowUp size={13} />
+            </button>
           </div>
-        </div>
 
-        <div className="footer-copyright-bar">
-          <p className="copyright-line">
-            © {new Date().getFullYear()} {personalInfo.name}. Designed & Engineered with React 19, Vite & Vanilla CSS.
-          </p>
-
-          <button
-            className="btn-scroll-top"
-            onClick={scrollToTop}
-            title="Return to top of page"
-            aria-label="Back to top"
-          >
-            <span>Top of Page</span>
-            <ArrowUp size={14} />
-          </button>
+          {/* Copyright notice */}
+          <div className="footer-copyright-text">
+            © {new Date().getFullYear()} SHAM R. ALL RIGHTS RESERVED.
+          </div>
         </div>
       </div>
     </footer>

@@ -62,22 +62,22 @@ export default function StarBackground() {
           ctx.lineTo(x, y);
         }
 
-        ctx.strokeStyle = i % 2 === 0 ? "rgba(20, 23, 26, 0.035)" : "rgba(26, 68, 194, 0.04)";
-        ctx.lineWidth = i % 3 === 0 ? 1.5 : 1;
+        ctx.strokeStyle = i % 2 === 0 ? "rgba(197, 164, 109, 0.04)" : "rgba(229, 193, 136, 0.06)";
+        ctx.lineWidth = i % 3 === 0 ? 1.2 : 0.8;
         ctx.stroke();
       }
 
       // Draw a subtle soft architectural focus circle
       const gradient = ctx.createRadialGradient(
         mouse.x, mouse.y, 10,
-        mouse.x, mouse.y, 280
+        mouse.x, mouse.y, 300
       );
-      gradient.addColorStop(0, "rgba(26, 68, 194, 0.035)");
-      gradient.addColorStop(0.6, "rgba(200, 75, 49, 0.015)");
+      gradient.addColorStop(0, "rgba(197, 164, 109, 0.045)");
+      gradient.addColorStop(0.6, "rgba(169, 135, 80, 0.015)");
       gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, 280, 0, Math.PI * 2);
+      ctx.arc(mouse.x, mouse.y, 300, 0, Math.PI * 2);
       ctx.fill();
 
       animationId = requestAnimationFrame(render);

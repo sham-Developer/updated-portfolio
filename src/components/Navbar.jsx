@@ -22,33 +22,29 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
   };
 
   const navLinks = [
-    { label: "Overview", href: "#hero" },
-    { label: "Selected Works", href: "#projects" },
+    { label: "About", href: "#about" },
+    { label: "Work", href: "#projects" },
     { label: "Experience", href: "#experience" },
-    { label: "About & Leadership", href: "#about" },
-    { label: "Proficiency", href: "#skills" },
-    { label: "Credentials", href: "#education" },
-    { label: "Contact", href: "#contact" }
+    { label: "Skills", href: "#skills" },
   ];
 
   return (
     <header className={`navbar-header ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-container">
-        {/* Editorial Monogram Brand */}
+        {/* Monogram Brand Mark */}
         <a
           href="#hero"
           className="brand-logo"
           onClick={() => soundManager.playHover()}
         >
-          <div className="brand-badge-box">S</div>
+          <div className="brand-badge-box">SR</div>
           <div className="brand-text-block">
             <span className="brand-title">SHAM R</span>
-            <span className="brand-role-caption">Software Team Lead</span>
+            <span className="brand-role-caption">Software Team Leader</span>
           </div>
-          <span className="brand-status-dot" title="Available for Impact"></span>
         </a>
 
-        {/* Desktop Links */}
+        {/* Clean, Curated Desktop Links */}
         <nav className="desktop-nav">
           {navLinks.map((link, i) => (
             <a
@@ -62,33 +58,33 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
           ))}
         </nav>
 
-        {/* Quick Utilities */}
+        {/* Essential Quick Utilities */}
         <div className="nav-utilities">
-          {/* Sound Toggle */}
+          {/* Audio FX Toggle (Micro icon button) */}
           <button
-            className={`utility-btn ${soundEnabled ? "active" : "muted"}`}
+            className={`utility-btn sound-toggle-btn ${soundEnabled ? "active" : "muted"}`}
             onClick={toggleSound}
-            title={soundEnabled ? "Mute Acoustic FX" : "Enable Acoustic FX"}
+            title={soundEnabled ? "Mute Sound Effects" : "Enable Sound Effects"}
             aria-label="Toggle Sound"
           >
             {soundEnabled ? <Volume2 size={15} /> : <VolumeX size={15} />}
           </button>
 
-          {/* Terminal Launcher */}
+          {/* Quick CLI Palette trigger (compact pill) */}
           <button
             className="utility-btn terminal-btn"
             onClick={() => {
               soundManager.playClick();
               onOpenTerminal();
             }}
-            title="Open Interactive CLI (Ctrl+K)"
-            aria-label="Terminal"
+            title="Open Interactive Terminal (Ctrl+K)"
+            aria-label="Open Terminal"
           >
             <Terminal size={14} />
-            <span className="key-hint">CLI ⌘K</span>
+            <span className="key-hint">⌘K</span>
           </button>
 
-          {/* Resume Viewer */}
+          {/* Curriculum Vitae Modal */}
           <button
             className="utility-btn resume-btn"
             onClick={() => {
@@ -98,17 +94,17 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
             title="View & Print Curriculum Vitae"
           >
             <FileText size={14} />
-            <span className="btn-label">CV</span>
+            <span className="btn-label">Resume</span>
           </button>
 
-          {/* Let's Talk CTA */}
+          {/* Clean Contact Action Button */}
           <a
             href="#contact"
             className="nav-cta-btn"
             onClick={() => soundManager.playClick()}
           >
-            <span>Initiate Contact</span>
-            <ArrowUpRight size={14} />
+            <span>Let's Talk</span>
+            <ArrowUpRight size={13} className="cta-arrow" />
           </a>
 
           {/* Mobile Menu Hamburger */}

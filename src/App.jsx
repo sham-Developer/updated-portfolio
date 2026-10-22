@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import StarBackground from "./components/StarBackground";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Projects from "./components/Projects";
-import ProjectModal from "./components/ProjectModal";
-import Experience from "./components/Experience";
+import StatsRibbon from "./components/StatsRibbon";
 import About from "./components/About";
+import Competencies from "./components/Competencies";
+import Projects from "./components/Projects";
+import Experience from "./components/Experience";
 import Skills from "./components/Skills";
+import Leadership from "./components/Leadership";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ProjectModal from "./components/ProjectModal";
 import TerminalDrawer from "./components/TerminalDrawer";
 import ResumeModal from "./components/ResumeModal";
 import { soundManager } from "./utils/sound";
@@ -67,45 +70,61 @@ export default function App() {
   }, []);
 
   return (
-    <div className="portfolio-editorial-app">
+    <div className="obsidian-gold-portfolio-app">
       {/* Top Reading Progress Line */}
       <div
         className="scroll-progress-indicator"
         style={{ width: `${scrollProgress}%` }}
       />
 
-      {/* Interactive Topographic Mesh Background */}
+      {/* Atmospheric Gold Hairlines Canvas */}
       <StarBackground />
 
-      {/* Floating Editorial Navigation Header */}
+      {/* Fixed Obsidian Navigation Header */}
       <Navbar
         onOpenTerminal={() => setIsTerminalOpen(true)}
         onOpenResume={() => setIsResumeOpen(true)}
       />
 
-      {/* Main Sections */}
+      {/* Main Structural Flow */}
       <main>
+        {/* 01. HERO (Obsidian Black: #101010) */}
         <Hero
           onOpenTerminal={() => setIsTerminalOpen(true)}
           onOpenResume={() => setIsResumeOpen(true)}
         />
 
+        {/* 02. METRICS STRIP (Warm Ivory: #F5F2EB) */}
+        <StatsRibbon />
+
+        {/* 03. ABOUT — THE ENGINEERING MINDSET (Warm Ivory: #F5F2EB) */}
+        <About />
+
+        {/* 04. CORE COMPETENCIES (Deep Charcoal: #191919) */}
+        <Competencies />
+
+        {/* 05. FEATURED PROJECTS (Alternating Warm Ivory & Obsidian) */}
         <Projects
           onSelectProject={(project) => setSelectedProject(project)}
         />
 
+        {/* 06. PROFESSIONAL EXPERIENCE TIMELINE (Obsidian Black: #101010) */}
         <Experience />
 
-        <About />
-
+        {/* 07. TECHNICAL TOOLKIT (Warm Ivory: #F5F2EB) */}
         <Skills />
 
+        {/* 08. ENGINEERING PRINCIPLES (Deep Charcoal: #191919) */}
+        <Leadership />
+
+        {/* 09. FOUNDATIONS & CREDENTIALS (Warm Ivory: #F5F2EB) */}
         <Education />
 
+        {/* 10. CONTACT — NEXT COLLABORATION (Obsidian Black: #101010) */}
         <Contact />
       </main>
 
-      {/* Editorial Footer */}
+      {/* 11. FOOTER (Warm Ivory: #F5F2EB) */}
       <Footer
         onOpenTerminal={() => setIsTerminalOpen(true)}
         onOpenResume={() => setIsResumeOpen(true)}

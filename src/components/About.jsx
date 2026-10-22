@@ -1,118 +1,80 @@
-import React, { useState } from "react";
-import { Crown, CheckCircle2, ShieldCheck, Target, ArrowRight, Quote } from "lucide-react";
+import React from "react";
 import { soundManager } from "../utils/sound";
-import { personalInfo, competencies, leadershipPoints } from "../data/portfolioData";
+import { personalInfo } from "../data/portfolioData";
 
 export default function About() {
-  const [activePillar, setActivePillar] = useState(0);
-
   return (
-    <section id="about" className="about-section">
+    <section id="about" className="about-mindset-ivory-section">
       <div className="section-container">
         {/* Section Header */}
-        <div className="section-header-centered reveal-on-scroll">
-          <span className="section-label-chip">PHILOSOPHY & PROFILE</span>
-          <h2 className="section-main-title">
-            Engineering Rigor & <span className="text-cobalt">Leadership Principles</span>
+        <div className="section-header-editorial reveal-on-scroll">
+          <div className="section-label-chip ivory-theme">
+            <span className="chip-dot"></span>
+            <span>01 / ABOUT THE ENGINEER</span>
+          </div>
+          <h2 className="section-main-title ivory-theme">
+            Engineering is more than code. It is the <span className="serif-accent ivory-mode">art of making complexity manageable</span>.
           </h2>
-          <p className="section-desc">
-            Bridging technical depth with human leadership: translating client requirements into scalable architectural systems while mentoring developers toward engineering excellence.
-          </p>
         </div>
 
-        {/* 2-Column Grid */}
-        <div className="about-editorial-grid">
-          {/* Left Column: Authentic Executive Bio */}
-          <div className="about-bio-white-card reveal-on-scroll delay-100">
-            <div className="bio-lead-tag">
-              <Crown size={15} className="text-terracotta" />
-              <span>SOFTWARE TEAM LEADER PROFILE</span>
-            </div>
-
-            <h3 className="bio-card-heading">
-              Delivering scalable business value through structured code and team clarity.
-            </h3>
-
-            <p className="bio-card-para">
-              Software Developer with nearly 3 years of hands-on experience in designing, developing, deploying, and maintaining web and Android applications. Currently serving as a <strong>Software Team Leader</strong> at <strong>Fisto Tech Private Limited</strong> in Coimbatore, Tamil Nadu.
+        {/* Asymmetrical 2-Column Grid */}
+        <div className="mindset-editorial-grid">
+          {/* Left Column: Biography Narrative & Philosophy Box */}
+          <div className="mindset-bio-col reveal-on-scroll delay-100">
+            <p className="mindset-body-lead">
+              Full-Stack Software Engineer & Software Team Leader with nearly 3 years of hands-on experience architecting, shipping, and maintaining mission-critical web and Android applications. Currently leading cross-functional engineering pods at <strong>Fisto Tech</strong>, defining distributed system designs, managing client requirements, and instituting automated quality governance.
             </p>
 
-            <p className="bio-card-para">
-              Promoted to Team Lead based on technical performance and leadership contributions. I lead a team of 5+ developers delivering web and Android applications, managing task planning, code reviews, sprint execution, client requirement discovery, and production deployments.
+            <p className="mindset-body-text">
+              My background converges at the intersection of high-performance backend systems, reactive frontend interfaces, native mobile architectures, and real-time computer vision processing. Whether orchestrating 3D WebGL pattern rendering pipelines or provisioning containerized cloud APIs, my focus remains unchanged: deterministic reliability and structural elegance.
             </p>
 
-            <div className="bio-stats-trio">
-              <div className="bio-stat-col">
-                <span className="b-num text-cobalt">15+</span>
-                <span className="b-desc">Client Projects Delivered</span>
-              </div>
-              <div className="bio-stat-col">
-                <span className="b-num text-terracotta">8+</span>
-                <span className="b-desc">Production Apps Live</span>
-              </div>
-              <div className="bio-stat-col">
-                <span className="b-num text-forest">5+</span>
-                <span className="b-desc">Developers Mentored</span>
-              </div>
-            </div>
-
-            <div className="editorial-quote-block">
-              <Quote size={20} className="text-cobalt quote-icon" />
-              <p>
-                “Great software is not just about lines of code; it is about predictable delivery, maintainable design systems, and empowering engineers to take ownership of client outcomes.”
+            {/* Philosophy Box */}
+            <div className="mindset-quote-block">
+              <span className="quote-tag-mono">// PHILOSOPHY AT SCALE</span>
+              <p className="quote-italic-statement">
+                “Software architecture is the deliberate reduction of surprise. When a software system behaves deterministically under complex real-world conditions, true craftsmanship has been achieved.”
               </p>
-              <span className="quote-author-name">— Sham R, Software Team Leader</span>
-            </div>
-          </div>
-
-          {/* Right Column: Leadership Pillars */}
-          <div className="about-pillars-stack reveal-on-scroll delay-200">
-            <h4 className="pillars-section-title">Leadership Tenets</h4>
-
-            <div className="pillars-editorial-list">
-              {leadershipPoints.map((point, i) => (
-                <div
-                  key={i}
-                  className={`pillar-editorial-card ${activePillar === i ? "active-pillar" : ""}`}
-                  onMouseEnter={() => {
-                    soundManager.playHover();
-                    setActivePillar(i);
-                  }}
-                  onClick={() => {
-                    soundManager.playClick();
-                    setActivePillar(i);
-                  }}
-                >
-                  <div className="pillar-top-row">
-                    <span className="pillar-num-stamp">0{i + 1}</span>
-                    <h5 className="pillar-heading-title">{point.title}</h5>
-                  </div>
-                  <p className="pillar-body-text">{point.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Competencies Section */}
-        <div className="competencies-editorial-area reveal-on-scroll delay-300">
-          <h4 className="comp-block-title">Core Engineering Competencies</h4>
-          <div className="competencies-grid-clean">
-            {competencies.map((comp, idx) => (
-              <div
-                key={idx}
-                className="comp-card-clean"
-                onMouseEnter={() => soundManager.playHover()}
-              >
-                <div className="comp-check-box">
-                  <CheckCircle2 size={17} className="text-cobalt" />
-                </div>
-                <div className="comp-text-block">
-                  <h5 className="comp-item-title">{comp.title}</h5>
-                  <p className="comp-item-desc">{comp.desc}</p>
-                </div>
+              <div className="quote-author-signature">
+                — Sham R, Software Developer & Team Leader
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Right Column: 3 Architectural Pillars */}
+          <div className="mindset-pillars-col reveal-on-scroll delay-200">
+            <div
+              className="architectural-pillar-card"
+              onMouseEnter={() => soundManager.playHover()}
+            >
+              <span className="pillar-index-label">PILLAR // 01</span>
+              <h3 className="pillar-card-title">ARCHITECTURE FIRST</h3>
+              <p className="pillar-card-desc">
+                Maintainable foundations, decoupled domain boundaries, and explicit RESTful contracts prevent technical debt before it manifests.
+              </p>
+            </div>
+
+            <div
+              className="architectural-pillar-card"
+              onMouseEnter={() => soundManager.playHover()}
+            >
+              <span className="pillar-index-label">PILLAR // 02</span>
+              <h3 className="pillar-card-title">DELIVERY WITH CONFIDENCE</h3>
+              <p className="pillar-card-desc">
+                Rigorous code review standards, agile sprint orchestration, and automated CI/CD pipelines turn client deployments into predictable non-events.
+              </p>
+            </div>
+
+            <div
+              className="architectural-pillar-card"
+              onMouseEnter={() => soundManager.playHover()}
+            >
+              <span className="pillar-index-label">PILLAR // 03</span>
+              <h3 className="pillar-card-title">BUILT FOR THE REAL WORLD</h3>
+              <p className="pillar-card-desc">
+                High-throughput queries, offline-first SQLite synchronization, and edge computer vision algorithms engineered for real industrial and field environments.
+              </p>
+            </div>
           </div>
         </div>
       </div>

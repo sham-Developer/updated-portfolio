@@ -1,103 +1,72 @@
 import React from "react";
-import { GraduationCap, Award, Calendar, BookOpen, CheckCircle, ShieldCheck } from "lucide-react";
 import { soundManager } from "../utils/sound";
 import { education, certifications } from "../data/portfolioData";
 
 export default function Education() {
   return (
-    <section id="education" className="education-section">
+    <section id="education" className="foundations-ivory-section">
       <div className="section-container">
-        {/* Editorial Section Header */}
-        <div className="section-header-centered reveal-on-scroll">
-          <span className="section-label-chip">ACADEMIC & CREDENTIALS</span>
-          <h2 className="section-main-title">
-            Academic Foundations & <span className="text-cobalt">Certifications</span>
+        {/* Section Header */}
+        <div className="section-header-editorial reveal-on-scroll">
+          <div className="section-label-chip ivory-theme">
+            <span className="chip-dot"></span>
+            <span>07 / FOUNDATIONS</span>
+          </div>
+          <h2 className="section-main-title ivory-theme">
+            Academic rigour meets <span className="serif-accent ivory-mode">modern certification</span>.
           </h2>
-          <p className="section-desc">
-            Combining university computer application fundamentals with verified industry-grade full stack credentials and ongoing higher education.
+          <p className="section-desc ivory-theme">
+            Grounding advanced computer application theory and business information systems with verified industry-grade full-stack credentials.
           </p>
         </div>
 
-        <div className="education-editorial-grid">
-          {/* Left Column: Degrees */}
-          <div className="edu-degrees-col reveal-on-scroll delay-100">
-            <div className="column-title-strip">
-              <GraduationCap size={19} className="text-cobalt" />
-              <span>University Degrees</span>
+        {/* Credentials List Stack */}
+        <div className="credentials-cards-stack">
+          {/* Degree 1 */}
+          <div
+            className="credential-ivory-card reveal-on-scroll delay-100"
+            onMouseEnter={() => soundManager.playHover()}
+          >
+            <div className="credential-left-info">
+              <span className="credential-category-tag">GRADUATE DEGREE</span>
+              <h3 className="credential-degree-title">{education[0].degree}</h3>
+              <p className="credential-inst-text">{education[0].institution}</p>
+              <p className="credential-desc-body">{education[0].description}</p>
             </div>
-
-            <div className="degree-cards-stack">
-              {education.map((edu, idx) => (
-                <div
-                  key={idx}
-                  className="academic-white-card"
-                  onMouseEnter={() => soundManager.playHover()}
-                >
-                  <div className="academic-card-top-row">
-                    <span className="degree-status-pill">{edu.status}</span>
-                    <div className="academic-period-stamp">
-                      <Calendar size={13} />
-                      <span>{edu.period}</span>
-                    </div>
-                  </div>
-
-                  <h4 className="academic-degree-name">{edu.degree}</h4>
-
-                  <div className="academic-institution-line">
-                    <BookOpen size={14} className="text-cobalt" />
-                    <span>{edu.institution}</span>
-                  </div>
-
-                  <p className="academic-summary-text">{edu.description}</p>
-                </div>
-              ))}
+            <div className="credential-period-badge">
+              {education[0].period.toUpperCase()}
             </div>
           </div>
 
-          {/* Right Column: Industry Certifications */}
-          <div className="edu-certs-col reveal-on-scroll delay-200">
-            <div className="column-title-strip">
-              <Award size={19} className="text-terracotta" />
-              <span>Industry Certifications</span>
+          {/* Degree 2 */}
+          <div
+            className="credential-ivory-card reveal-on-scroll delay-200"
+            onMouseEnter={() => soundManager.playHover()}
+          >
+            <div className="credential-left-info">
+              <span className="credential-category-tag">UNDERGRADUATE DEGREE</span>
+              <h3 className="credential-degree-title">{education[1].degree}</h3>
+              <p className="credential-inst-text">{education[1].institution}</p>
+              <p className="credential-desc-body">{education[1].description}</p>
             </div>
+            <div className="credential-period-badge">
+              {education[1].period.toUpperCase()}
+            </div>
+          </div>
 
-            <div className="cert-cards-stack">
-              {certifications.map((cert, idx) => (
-                <div
-                  key={idx}
-                  className="cert-white-card"
-                  onMouseEnter={() => soundManager.playHover()}
-                >
-                  <div className="cert-top-row">
-                    <div className="cert-icon-container">
-                      <Award size={22} className="text-terracotta" />
-                    </div>
-                    <div>
-                      <span className="cert-verified-label">{cert.badge}</span>
-                      <h4 className="cert-title-name">{cert.name}</h4>
-                      <span className="cert-issuer-text">Issued by {cert.issuer}</span>
-                    </div>
-                  </div>
-
-                  <p className="cert-narrative-desc">{cert.desc}</p>
-
-                  <div className="cert-verified-footer">
-                    <CheckCircle size={15} className="text-forest" />
-                    <span>Verified Practical Engineering Credential</span>
-                  </div>
-                </div>
-              ))}
-
-              {/* Continuing Education Card */}
-              <div className="continuous-learning-card">
-                <ShieldCheck size={20} className="text-cobalt" />
-                <div>
-                  <h5>Continuous Engineering Evolution</h5>
-                  <p>
-                    Actively advancing knowledge in distributed cloud microservices, database scaling, and edge computer vision algorithms alongside daily engineering leadership.
-                  </p>
-                </div>
-              </div>
+          {/* Industry Certification */}
+          <div
+            className="credential-ivory-card reveal-on-scroll delay-300"
+            onMouseEnter={() => soundManager.playHover()}
+          >
+            <div className="credential-left-info">
+              <span className="credential-category-tag">INDUSTRY CERTIFICATION</span>
+              <h3 className="credential-degree-title">{certifications[0].name}</h3>
+              <p className="credential-inst-text">Issued by {certifications[0].issuer}</p>
+              <p className="credential-desc-body">{certifications[0].desc}</p>
+            </div>
+            <div className="credential-period-badge">
+              {certifications[0].badge.toUpperCase()}
             </div>
           </div>
         </div>

@@ -1,64 +1,52 @@
 import React from "react";
-import { Briefcase, CloudLightning, Users, Clock, Award, ShieldCheck } from "lucide-react";
 import { soundManager } from "../utils/sound";
 
 const statsList = [
   {
-    number: "15+",
-    title: "Client Projects Delivered",
-    desc: "From client requirement discovery to successful production launch.",
-    icon: Briefcase,
-    color: "cyan"
+    num: "15+",
+    index: "// 01",
+    label: "CLIENT PROJECTS DELIVERED",
+    subtext: "Across multiple business domains"
   },
   {
-    number: "8+",
-    title: "Production Deployments",
-    desc: "High-uptime web & mobile platforms on cloud & Linux servers.",
-    icon: CloudLightning,
-    color: "purple"
+    num: "8+",
+    index: "// 02",
+    label: "PRODUCTION DEPLOYMENTS",
+    subtext: "Live high-traffic environments"
   },
   {
-    number: "5+",
-    title: "Developers Led & Mentored",
-    desc: "Sprint planning, architectural code reviews, CI/CD workflows.",
-    icon: Users,
-    color: "emerald"
+    num: "5+",
+    index: "// 03",
+    label: "ENGINEERS LED IN PODS",
+    subtext: "Agile sprints, code reviews & CI/CD"
   },
   {
-    number: "3",
-    title: "Years Engineering Depth",
-    desc: "Full-Stack Web (React/Node), Android (Kotlin/Java) & Vision.",
-    icon: Clock,
-    color: "amber"
+    num: "Nearly 3",
+    index: "// 04",
+    label: "YEARS OF ARCHITECTURAL CRAFT",
+    subtext: "Full-Stack, Android & Vision Systems"
   }
 ];
 
 export default function StatsRibbon() {
   return (
-    <section className="stats-ribbon-section">
-      <div className="stats-container">
-        <div className="stats-grid">
-          {statsList.map((stat, i) => {
-            const Icon = stat.icon;
-            return (
-              <div
-                key={i}
-                className={`stat-card border-glow-${stat.color}`}
-                onMouseEnter={() => soundManager.playHover()}
-              >
-                <div className={`stat-icon-wrapper color-${stat.color}`}>
-                  <Icon size={24} />
-                </div>
-                <div className="stat-text-area">
-                  <div className={`stat-number-display color-${stat.color}`}>
-                    {stat.number}
-                  </div>
-                  <h3 className="stat-title">{stat.title}</h3>
-                  <p className="stat-description">{stat.desc}</p>
-                </div>
+    <section id="stats" className="metrics-strip-ivory-section">
+      <div className="section-container">
+        <div className="metrics-four-grid">
+          {statsList.map((stat, i) => (
+            <div
+              key={i}
+              className={`metric-ivory-card reveal-on-scroll delay-${i * 100}`}
+              onMouseEnter={() => soundManager.playHover()}
+            >
+              <div className="metric-header-line">
+                <span className="metric-large-num">{stat.num}</span>
+                <span className="metric-index-tag">{stat.index}</span>
               </div>
-            );
-          })}
+              <div className="metric-title-label">{stat.label}</div>
+              <div className="metric-sub-label">{stat.subtext}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
