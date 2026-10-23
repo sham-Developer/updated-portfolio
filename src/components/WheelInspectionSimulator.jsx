@@ -199,40 +199,40 @@ export default function WheelInspectionSimulator() {
   };
 
   return (
-    <div className="wheel-simulator-box">
-      <div className="wheel-sim-bar">
-        <div className="wheel-sim-heading-meta">
-          <div className="wheel-active-tag">
+    <div className="wheel-sim-editorial-box">
+      <div className="wheel-sim-top-strip">
+        <div className="sim-title-left">
+          <div className="sim-live-badge">
             <span className={`status-point ${isScanning ? "pulse" : "static"}`}></span>
-            <span className="status-label">{isScanning ? "LIVE OPENCV STREAM ACTIVE" : "STREAM PAUSED"}</span>
+            <span>{isScanning ? "LIVE OPENCV STREAM" : "STREAM PAUSED"}</span>
           </div>
-          <h4 className="wheel-module-title">Alloy Wheel Gap Quality Control Rig</h4>
+          <h4 className="sim-main-title">Alloy Wheel Gap Quality Control Rig</h4>
         </div>
 
-        <div className="wheel-bar-actions">
+        <div className="sim-controls-right">
           <button
-            className={`sim-action-pill ${isScanning ? "active" : ""}`}
+            className={`sim-btn-toggle ${isScanning ? "running" : ""}`}
             onClick={toggleScan}
           >
             {isScanning ? <Pause size={13} /> : <Play size={13} />}
             <span>{isScanning ? "Pause Stream" : "Resume"}</span>
           </button>
 
-          <div className="defect-filter-pills">
+          <div className="defect-mode-selector">
             <button
-              className={`pill-opt ${defectMode === "mixed" ? "active" : ""}`}
+              className={`defect-btn ${defectMode === "mixed" ? "active" : ""}`}
               onClick={() => handleModeChange("mixed")}
             >
               Test Rig
             </button>
             <button
-              className={`pill-opt ${defectMode === "clear" ? "active" : ""}`}
+              className={`defect-btn ${defectMode === "clear" ? "active" : ""}`}
               onClick={() => handleModeChange("clear")}
             >
               100% Pass
             </button>
             <button
-              className={`pill-opt ${defectMode === "defect" ? "active" : ""}`}
+              className={`defect-btn ${defectMode === "defect" ? "active" : ""}`}
               onClick={() => handleModeChange("defect")}
             >
               Inject Obstructions

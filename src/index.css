@@ -29,32 +29,32 @@
 
   /* Alternating Warm Ivory Section Surfaces */
   --bg-ivory: #F5F2EB;
-  --bg-ivory-card: #EBE7DF;
-  --bg-ivory-card-hover: #E3DFD5;
-  --text-ivory-heading: #191919;
-  --text-ivory-body: #474742;
-  --text-ivory-muted: #5C5A56;
-  --border-ivory: #D9D6CF;
+  --bg-ivory-card: #FFFFFF;
+  --bg-ivory-card-hover: #F8F6F0;
+  --text-ivory-heading: #121212;
+  --text-ivory-body: #2B2927;
+  --text-ivory-muted: #3D3A36;
+  --border-ivory: #CBC7BD;
 
   /* Champagne & Antique Gold Accents */
-  --gold-primary: #C5A46D;
-  --gold-bright: #E5C188;
-  --gold-muted: #A98750;
-  --gold-dim: rgba(197, 164, 109, 0.15);
-  --gold-glow: rgba(197, 164, 109, 0.25);
+  --gold-primary: #D4B27C;
+  --gold-bright: #F0D39E;
+  --gold-muted: #8E6B2E;
+  --gold-dim: rgba(212, 178, 124, 0.16);
+  --gold-glow: rgba(212, 178, 124, 0.28);
 
   /* Obsidian Typography */
   --text-primary: #FFFFFF;
-  --text-secondary: #E5E2E1;
-  --text-body: #D1C5B6;
-  --text-muted: #9A8F81;
-  --text-dim: #6E6860;
+  --text-secondary: #F0ECE6;
+  --text-body: #E2D9CE;
+  --text-muted: #B5ABA0;
+  --text-dim: #948B80;
 
   /* Structural Hairline Borders */
-  --border-subtle: #272727;
-  --border-strong: #353534;
-  --border-gold: #C5A46D;
-  --border-gold-subtle: rgba(197, 164, 109, 0.35);
+  --border-subtle: #333333;
+  --border-strong: #444443;
+  --border-gold: #D4B27C;
+  --border-gold-subtle: rgba(212, 178, 124, 0.4);
 
   /* Fonts */
   --font-display: 'Space Grotesk', -apple-system, sans-serif;

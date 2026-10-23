@@ -4,7 +4,7 @@ import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
 import { personalInfo, projects, experience, technicalSkills } from "../data/portfolioData";
 
-export default function TerminalDrawer({ isOpen, onClose, onOpenProject }) {
+export default function TerminalDrawer({ isOpen, onClose }) {
   const [inputVal, setInputVal] = useState("");
   const [history, setHistory] = useState([
     { type: "system", text: "⚡ Sham R [Interactive CLI v3.0 — Editorial Edition]" },
@@ -49,11 +49,10 @@ export default function TerminalDrawer({ isOpen, onClose, onOpenProject }) {
           type: "output",
           text: `AVAILABLE TERMINAL COMMANDS:
   • help         - Display this manual
-  • projects     - Enumerate all works & simulators
+  • projects     - Enumerate all production works & tech stacks
   • skills       - Display technical competencies & tech stack
   • experience   - View professional leadership progression
   • contact      - Print direct coordinates (Email, Phone, Profiles)
-  • open [1-4]   - Launch project simulator directly (e.g. 'open 1')
   • download-cv  - Trigger instant Curriculum Vitae print dialog
   • clear        - Reset output console
   • whoami       - Inspect current session context`
@@ -64,7 +63,7 @@ export default function TerminalDrawer({ isOpen, onClose, onOpenProject }) {
         newHistory.push({
           type: "output",
           text: projects
-            .map((p, i) => `[${i + 1}] ${p.title}\n    Category: ${p.category} | Stack: ${p.technologies.slice(0, 3).join(", ")}\n    Type 'open ${i + 1}' to launch simulator`)
+            .map((p, i) => `[${i + 1}] ${p.title}\n    Category: ${p.category}\n    Technologies: ${p.technologies.join(", ")}\n    Summary: ${p.summary}`)
             .join("\n\n")
         });
         break;
@@ -125,22 +124,6 @@ LinkedIn:  ${personalInfo.linkedin}`
         return;
 
       default:
-        if (cmd.startsWith("open ")) {
-          const num = parseInt(cmd.replace("open ", "").trim(), 10);
-          if (num >= 1 && num <= projects.length) {
-            const chosen = projects[num - 1];
-            newHistory.push({
-              type: "system",
-              text: `🚀 Launching simulator for: "${chosen.title}"...`
-            });
-            setHistory(newHistory);
-            setInputVal("");
-            if (onOpenProject) {
-              setTimeout(() => onOpenProject(chosen), 300);
-            }
-            return;
-          }
-        }
         newHistory.push({
           type: "error",
           text: `Command not found: "${cmd}". Type 'help' to see valid commands.`

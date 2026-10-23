@@ -12,14 +12,12 @@ import Leadership from "./components/Leadership";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import ProjectModal from "./components/ProjectModal";
 import TerminalDrawer from "./components/TerminalDrawer";
 import ResumeModal from "./components/ResumeModal";
 import { soundManager } from "./utils/sound";
 import "./App.css";
 
 export default function App() {
-  const [selectedProject, setSelectedProject] = useState(null);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -104,9 +102,7 @@ export default function App() {
         <Competencies />
 
         {/* 05. FEATURED PROJECTS (Alternating Warm Ivory & Obsidian) */}
-        <Projects
-          onSelectProject={(project) => setSelectedProject(project)}
-        />
+        <Projects />
 
         {/* 06. PROFESSIONAL EXPERIENCE TIMELINE (Obsidian Black: #101010) */}
         <Experience />
@@ -130,22 +126,10 @@ export default function App() {
         onOpenResume={() => setIsResumeOpen(true)}
       />
 
-      {/* Project Simulator & Architecture Modal */}
-      {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-      )}
-
       {/* Interactive CLI Terminal (Ctrl+K) */}
       <TerminalDrawer
         isOpen={isTerminalOpen}
         onClose={() => setIsTerminalOpen(false)}
-        onOpenProject={(proj) => {
-          setIsTerminalOpen(false);
-          setSelectedProject(proj);
-        }}
       />
 
       {/* Curriculum Vitae Viewer & PDF Generator Modal */}

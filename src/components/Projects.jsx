@@ -1,10 +1,7 @@
 import React from "react";
-import { ArrowRight, CheckCircle2, Play, Eye } from "lucide-react";
-import { soundManager } from "../utils/sound";
-import { projects } from "../data/portfolioData";
+import { CheckCircle2 } from "lucide-react";
 
-export default function Projects({ onSelectProject }) {
-  // Editorial showcase order matching Stitch project
+export default function Projects() {
   return (
     <div id="projects" className="projects-alternating-showcase">
       {/* Intro Header */}
@@ -65,31 +62,11 @@ export default function Projects({ onSelectProject }) {
                 <span>WebGL / Canvas</span>
                 <span>HTML5 / CSS3</span>
               </div>
-
-              <div className="project-actions-row">
-                <button
-                  className="btn-project-action ivory"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onSelectProject(projects[0]);
-                  }}
-                >
-                  <Play size={14} />
-                  <span>LAUNCH INTERACTIVE 3D SIMULATOR</span>
-                  <ArrowRight size={14} />
-                </button>
-              </div>
             </div>
 
             {/* Visual Column */}
             <div className="project-editorial-visual reveal-on-scroll delay-100">
-              <div
-                className="visual-container-frame ivory group"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectProject(projects[0]);
-                }}
-              >
+              <div className="visual-container-frame ivory">
                 <img
                   src="/assets/mockup_3d.png"
                   alt="3D Product Configurator Interface Mockup"
@@ -98,10 +75,6 @@ export default function Projects({ onSelectProject }) {
                 />
                 <div className="visual-top-tag dark">
                   WEBGL & REAL-TIME SHADERS
-                </div>
-                <div className="visual-hover-overlay">
-                  <Play size={20} />
-                  <span>Click to Test 3D Pattern Simulator</span>
                 </div>
               </div>
             </div>
@@ -115,13 +88,7 @@ export default function Projects({ onSelectProject }) {
           <div className="project-editorial-row reverse">
             {/* Visual Column */}
             <div className="project-editorial-visual reveal-on-scroll">
-              <div
-                className="visual-container-frame ivory group"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectProject(projects[1]);
-                }}
-              >
+              <div className="visual-container-frame ivory">
                 <img
                   src="/assets/crm_system.png"
                   alt="Enterprise CRM Platform Interface Mockup"
@@ -130,10 +97,6 @@ export default function Projects({ onSelectProject }) {
                 />
                 <div className="visual-top-tag dark left">
                   MULTI-TENANT CLOUD ARCHITECTURE
-                </div>
-                <div className="visual-hover-overlay">
-                  <Play size={20} />
-                  <span>Click to Test Live Pipeline Simulator</span>
                 </div>
               </div>
             </div>
@@ -174,20 +137,6 @@ export default function Projects({ onSelectProject }) {
                 <span>PHP</span>
                 <span>MySQL</span>
                 <span>Android (Java)</span>
-              </div>
-
-              <div className="project-actions-row">
-                <button
-                  className="btn-project-action ivory"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onSelectProject(projects[1]);
-                  }}
-                >
-                  <Play size={14} />
-                  <span>EXPLORE PIPELINE SIMULATOR</span>
-                  <ArrowRight size={14} />
-                </button>
               </div>
             </div>
           </div>
@@ -235,31 +184,11 @@ export default function Projects({ onSelectProject }) {
                 <span>Computer Vision</span>
                 <span>Real-Time Ingestion</span>
               </div>
-
-              <div className="project-actions-row">
-                <button
-                  className="btn-project-action gold"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onSelectProject(projects[2]);
-                  }}
-                >
-                  <Play size={14} />
-                  <span>RUN LIVE OPENCV SIMULATION</span>
-                  <ArrowRight size={14} />
-                </button>
-              </div>
             </div>
 
             {/* Visual Column */}
             <div className="project-editorial-visual reveal-on-scroll delay-100">
-              <div
-                className="visual-container-frame dark group"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectProject(projects[2]);
-                }}
-              >
+              <div className="visual-container-frame dark">
                 <img
                   src="/assets/alloy_inspection.png"
                   alt="Industrial Computer Vision Inspection Rig Mockup"
@@ -268,10 +197,6 @@ export default function Projects({ onSelectProject }) {
                 />
                 <div className="visual-top-tag gold">
                   REAL-TIME DEFECT DETECTION
-                </div>
-                <div className="visual-hover-overlay dark">
-                  <Play size={20} />
-                  <span>Launch Live CV Inspection Simulator</span>
                 </div>
               </div>
             </div>
@@ -285,13 +210,7 @@ export default function Projects({ onSelectProject }) {
           <div className="project-editorial-row reverse">
             {/* Visual Column */}
             <div className="project-editorial-visual reveal-on-scroll">
-              <div
-                className="visual-container-frame ivory group"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectProject(projects[3]);
-                }}
-              >
+              <div className="visual-container-frame ivory">
                 <img
                   src="/assets/smart_irrigation.png"
                   alt="Smart Agriculture Telemetry and CAD Interface"
@@ -300,10 +219,6 @@ export default function Projects({ onSelectProject }) {
                 />
                 <div className="visual-top-tag dark">
                   OFFLINE-FIRST ANDROID TOOL
-                </div>
-                <div className="visual-hover-overlay">
-                  <Eye size={20} />
-                  <span>View Architectural Case Study</span>
                 </div>
               </div>
             </div>
@@ -344,20 +259,6 @@ export default function Projects({ onSelectProject }) {
                 <span>Kotlin</span>
                 <span>SQLite</span>
                 <span>PDF Engine</span>
-              </div>
-
-              <div className="project-actions-row">
-                <button
-                  className="btn-project-action ivory"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onSelectProject(projects[3]);
-                  }}
-                >
-                  <Eye size={14} />
-                  <span>INSPECT FIELD SPECIFICATIONS</span>
-                  <ArrowRight size={14} />
-                </button>
               </div>
             </div>
           </div>
@@ -405,31 +306,11 @@ export default function Projects({ onSelectProject }) {
                 <span>MySQL</span>
                 <span>REST APIs</span>
               </div>
-
-              <div className="project-actions-row">
-                <button
-                  className="btn-project-action ivory"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onSelectProject(projects[4]);
-                  }}
-                >
-                  <Eye size={14} />
-                  <span>REVIEW DISPATCH ARCHITECTURE</span>
-                  <ArrowRight size={14} />
-                </button>
-              </div>
             </div>
 
             {/* Visual Column */}
             <div className="project-editorial-visual reveal-on-scroll delay-100">
-              <div
-                className="visual-container-frame ivory group"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectProject(projects[4]);
-                }}
-              >
+              <div className="visual-container-frame ivory">
                 <img
                   src="/assets/distribution_logistics.png"
                   alt="Wholesale Logistics and Invoice Management Dashboard"
@@ -438,10 +319,6 @@ export default function Projects({ onSelectProject }) {
                 />
                 <div className="visual-top-tag dark">
                   INVENTORY & DISPATCH
-                </div>
-                <div className="visual-hover-overlay">
-                  <Eye size={20} />
-                  <span>View Logistics Architecture</span>
                 </div>
               </div>
             </div>
