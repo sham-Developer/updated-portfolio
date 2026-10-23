@@ -1,7 +1,9 @@
 import React from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, ArrowUpRight, Cpu } from "lucide-react";
+import { soundManager } from "../utils/sound";
+import { projects } from "../data/portfolioData";
 
-export default function Projects() {
+export default function Projects({ onSelectProject }) {
   return (
     <div id="projects" className="projects-alternating-showcase">
       {/* Intro Header */}
@@ -62,6 +64,22 @@ export default function Projects() {
                 <span>WebGL / Canvas</span>
                 <span>HTML5 / CSS3</span>
               </div>
+
+              {onSelectProject && (
+                <div className="project-cta-launch-row">
+                  <button
+                    className="btn-interactive-launch ivory"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectProject(projects[0]);
+                    }}
+                  >
+                    <Cpu size={15} />
+                    <span>LAUNCH 3D SIMULATOR & SPECS</span>
+                    <ArrowUpRight size={14} />
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Visual Column */}
@@ -138,6 +156,22 @@ export default function Projects() {
                 <span>MySQL</span>
                 <span>Android (Java)</span>
               </div>
+
+              {onSelectProject && (
+                <div className="project-cta-launch-row">
+                  <button
+                    className="btn-interactive-launch ivory"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectProject(projects[1]);
+                    }}
+                  >
+                    <Cpu size={15} />
+                    <span>INSPECT CRM PIPELINE & RBAC</span>
+                    <ArrowUpRight size={14} />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -184,6 +218,22 @@ export default function Projects() {
                 <span>Computer Vision</span>
                 <span>Real-Time Ingestion</span>
               </div>
+
+              {onSelectProject && (
+                <div className="project-cta-launch-row">
+                  <button
+                    className="btn-interactive-launch gold"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectProject(projects[2]);
+                    }}
+                  >
+                    <Cpu size={15} />
+                    <span>LAUNCH OPENCV TEST RIG & TELEMETRY</span>
+                    <ArrowUpRight size={14} />
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Visual Column */}
@@ -260,6 +310,22 @@ export default function Projects() {
                 <span>SQLite</span>
                 <span>PDF Engine</span>
               </div>
+
+              {onSelectProject && (
+                <div className="project-cta-launch-row">
+                  <button
+                    className="btn-interactive-launch ivory"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectProject(projects[3]);
+                    }}
+                  >
+                    <Cpu size={15} />
+                    <span>VIEW FIELD CAD & HYDRAULIC SPECS</span>
+                    <ArrowUpRight size={14} />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -306,6 +372,22 @@ export default function Projects() {
                 <span>MySQL</span>
                 <span>REST APIs</span>
               </div>
+
+              {onSelectProject && (
+                <div className="project-cta-launch-row">
+                  <button
+                    className="btn-interactive-launch ivory"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectProject(projects[4]);
+                    }}
+                  >
+                    <Cpu size={15} />
+                    <span>VIEW DISTRIBUTION & LEDGER SPECS</span>
+                    <ArrowUpRight size={14} />
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Visual Column */}

@@ -3,38 +3,38 @@ import { soundManager } from "../utils/sound";
 
 const skillCategories = [
   {
-    index: "// 01 • CLIENT",
+    index: "01 / CLIENT",
     title: "Frontend Engineering",
     desc: "Component architecture, interactive rendering, WebGL canvas, and state hydration.",
     skills: ["React.js", "Next.js", "JavaScript (ES6+)", "Tailwind CSS", "HTML5 & CSS3", "WebGL / Canvas", "Bootstrap"]
   },
   {
-    index: "// 02 • RUNTIME",
+    index: "02 / RUNTIME",
     title: "Backend & Systems",
     desc: "Scalable micro-services, asynchronous workers, and robust RESTful API design.",
     skills: ["Node.js", "Express.js", "PHP", "RESTful Architecture", "Python (FastAPI/Django)", "JWT Auth"]
   },
   {
-    index: "// 03 • DEVICE",
+    index: "03 / MOBILE",
     title: "Mobile Engineering",
     desc: "Offline-first mobile workflows, local database indexing, and sensor background work.",
     skills: ["Android Studio", "Kotlin", "Java", "Android XML UI", "SQLite / Room", "GPS Telemetry", "Flutter"]
   },
   {
-    index: "// 04 • PERSISTENCE",
+    index: "04 / PERSISTENCE",
     title: "Database & Caching",
     desc: "Reliable relational schemas, low-latency queries, indexing, and data consistency.",
     skills: ["MySQL", "PostgreSQL", "MS SQL Server", "MongoDB", "Query Optimization", "Schema Indexing"]
   },
   {
-    index: "// 05 • INFRASTRUCTURE",
+    index: "05 / CLOUD",
     title: "Cloud & DevOps",
     desc: "Continuous integration release cycles, Linux environments, and zero-downtime deploys.",
     skills: ["AWS Fundamentals", "CI/CD Pipelines", "Linux Administration", "cPanel / DirectAdmin", "Vercel / Netlify"]
   },
   {
-    index: "// 06 • GOVERNANCE",
-    title: "Tooling & Leadership",
+    index: "06 / LEADERSHIP",
+    title: "Tooling & Pod Leadership",
     desc: "Stringent code reviews, automated inspection testing, and sprint delivery velocity.",
     skills: ["Git & GitHub", "Postman", "OpenCV (Computer Vision)", "Agile Sprint Leadership", "Code RFC Reviews"]
   }

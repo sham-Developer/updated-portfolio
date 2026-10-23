@@ -67,8 +67,7 @@ export default function Competencies() {
               onMouseEnter={() => soundManager.playHover()}
             >
               <div className="capability-top-row">
-                <span className="capability-index-tag">{cap.index}</span>
-                <span className="capability-axis-mark">SYS.POD_{i + 1}</span>
+                <span className="capability-index-tag">{String(i + 1).padStart(2, "0")}</span>
               </div>
 
               <h3 className="capability-title-heading">{cap.title}</h3>

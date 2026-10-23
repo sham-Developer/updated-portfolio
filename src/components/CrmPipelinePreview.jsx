@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Users, MapPin, CheckCircle2, TrendingUp, ArrowRight, ShieldCheck } from "lucide-react";
+import { MapPin, CheckCircle2, TrendingUp, ArrowRight, ShieldCheck } from "lucide-react";
 import { soundManager } from "../utils/sound";
 
 export default function CrmPipelinePreview() {

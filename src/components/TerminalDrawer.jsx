@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Terminal as TerminalIcon, X, CornerDownLeft, Sparkles } from "lucide-react";
+import { Terminal as TerminalIcon, X, CornerDownLeft } from "lucide-react";
 import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
-import { personalInfo, projects, experience, technicalSkills } from "../data/portfolioData";
+import { personalInfo, projects, experience } from "../data/portfolioData";
 
 export default function TerminalDrawer({ isOpen, onClose }) {
   const [inputVal, setInputVal] = useState("");

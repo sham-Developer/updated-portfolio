@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Terminal, Volume2, VolumeX, FileText, Menu, X, ArrowUpRight } from "lucide-react";
 import { soundManager } from "../utils/sound";
-import { personalInfo } from "../data/portfolioData";
 
 export default function Navbar({ onOpenTerminal, onOpenResume }) {
   const [scrolled, setScrolled] = useState(false);

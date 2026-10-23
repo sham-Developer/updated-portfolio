@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { X, ExternalLink, CheckCircle, Cpu, Layers, Code2, ArrowUpRight } from "lucide-react";
+import { X, CheckCircle, Cpu, Code2, ArrowUpRight } from "lucide-react";
 import WheelInspectionSimulator from "./WheelInspectionSimulator";
 import Mockup3DSimulator from "./Mockup3DSimulator";
 import CrmPipelinePreview from "./CrmPipelinePreview";
@@ -7,16 +7,22 @@ import { soundManager } from "../utils/sound";
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
+    if (!project) return;
+
     const handleKeyDown = (e) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleKeyDown);
+    
+    // Save previous overflow style and disable background scrolling
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = originalOverflow || "";
     };
-  }, [onClose]);
+  }, [project, onClose]);
 
   if (!project) return null;
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { soundManager } from "../utils/sound";
-import { personalInfo } from "../data/portfolioData";
 
 export default function About() {
   return (
@@ -22,21 +21,21 @@ export default function About() {
           {/* Left Column: Biography Narrative & Philosophy Box */}
           <div className="mindset-bio-col reveal-on-scroll delay-100">
             <p className="mindset-body-lead">
-              Full-Stack Software Engineer & Software Team Leader with nearly 3 years of hands-on experience architecting, shipping, and maintaining mission-critical web and Android applications. Currently leading cross-functional engineering pods at <strong>Fisto Tech</strong>, defining distributed system designs, managing client requirements, and instituting automated quality governance.
+              I'm Sham, a Software Developer and Team Leader based in Coimbatore. Over the past 3 years, I've worked my way up from junior developer to leading engineering pods at <strong>Fisto Tech</strong>—shipping 15+ production systems across full-stack React/Node web apps, native Android tools, and real-time OpenCV camera rigs.
             </p>
 
             <p className="mindset-body-text">
-              My background converges at the intersection of high-performance backend systems, reactive frontend interfaces, native mobile architectures, and real-time computer vision processing. Whether orchestrating 3D WebGL pattern rendering pipelines or provisioning containerized cloud APIs, my focus remains unchanged: deterministic reliability and structural elegance.
+              My day-to-day balance is 60% hands-on coding and 40% team leadership: gathering client requirements, defining database schemas, reviewing pull requests, unblocking developers, and ensuring deployments happen without 2 AM firefighting.
             </p>
 
-            {/* Philosophy Box */}
+            {/* Practical Engineering Note */}
             <div className="mindset-quote-block">
-              <span className="quote-tag-mono">// PHILOSOPHY AT SCALE</span>
+              <span className="quote-tag-mono">CORE WORKING PRINCIPLE</span>
               <p className="quote-italic-statement">
-                “Software architecture is the deliberate reduction of surprise. When a software system behaves deterministically under complex real-world conditions, true craftsmanship has been achieved.”
+                “Good software leadership is simple: clarify the requirements before writing code, keep dependencies lean, and build reliable automated tests so your team can deploy on Friday without anxiety.”
               </p>
               <div className="quote-author-signature">
-                — Sham R, Software Developer & Team Leader
+                — Sham R
               </div>
             </div>
           </div>

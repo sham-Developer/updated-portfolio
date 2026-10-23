@@ -34,10 +34,10 @@ export default function Contact() {
             <span>08 / NEXT COLLABORATION</span>
           </div>
           <h2 className="contact-main-display-title">
-            Have a complex problem? Let's build something <span className="serif-accent">remarkable</span>.
+            Have a project in mind or an engineering role to discuss? <span className="serif-accent">Let's talk</span>.
           </h2>
           <p className="contact-narrative-sub">
-            Whether you need a software team leader to stabilize and accelerate engineering sprints or a full-stack engineer to architect greenfield web, Android, or computer vision solutions, my transmission channels are open.
+            Whether you need a software team leader to orchestrate delivery sprints or a full-stack engineer to build web platforms, Android apps, or OpenCV inspection systems, I'm open to discussing opportunities.
           </p>
         </div>
 
@@ -49,12 +49,12 @@ export default function Contact() {
             onMouseEnter={() => soundManager.playHover()}
           >
             <div className="card-top-content">
-              <span className="contact-card-sublabel">DIRECT INQUIRY</span>
+              <span className="contact-card-sublabel">EMAIL</span>
               <div className="contact-email-monoline">
                 {personalInfo.email}
               </div>
               <p className="contact-card-note">
-                Encrypted transmission. Inquiries reviewed and acknowledged within 24 hours.
+                I typically respond to inquiries within 24 hours.
               </p>
             </div>
 

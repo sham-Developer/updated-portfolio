@@ -3,28 +3,28 @@ import { soundManager } from "../utils/sound";
 
 const principles = [
   {
-    num: "01 • CADENCE",
-    title: "Delivery with Discipline",
-    desc: "Agile execution is meaningless without rigorous testing and reliable automation. Velocity without quality is simply fast technical debt.",
-    motto: "PREDICTABILITY > HEROICS"
+    num: "01",
+    title: "Predictable Sprints Over Late-Night Heroics",
+    desc: "A great team doesn't rely on burnout sprints. We scope accurately, automate regression tests early, and hit release milestones on schedule.",
+    motto: "Sustainable Velocity"
   },
   {
-    num: "02 • PARTNERSHIP",
-    title: "Clients as Collaborators",
-    desc: "Clear architectural trade-offs communicated in business terms. We do not hide behind jargon; we present strategic options with absolute clarity.",
-    motto: "TRANSPARENT ALIGNMENT"
+    num: "02",
+    title: "Speaking Business Value, Not Tech Jargon",
+    desc: "When talking with clients and stakeholders, I explain architectural trade-offs in terms of cost, delivery timeline, and uptime—never hiding behind buzzwords.",
+    motto: "Transparent Alignment"
   },
   {
-    num: "03 • PURPOSE",
-    title: "Architecture with Intention",
-    desc: "Never over-engineer for hypothetical scale; design clean decoupled boundaries so the codebase effortlessly adapts when true scale arrives.",
-    motto: "SIMPLICITY IS ELEGANCE"
+    num: "03",
+    title: "Design for Today, Architect for Tomorrow",
+    desc: "Avoid over-engineering for hypothetical millions of users on day one. Build clean, decoupled domain interfaces so changes are straightforward when scale truly arrives.",
+    motto: "Clean Simplicity"
   },
   {
-    num: "04 • VERSATILITY",
-    title: "Engineering Across Domains",
-    desc: "Cross-pollination between WebGL graphics, native mobile workflows, and computer vision brings robust, high-performance solutions to life.",
-    motto: "MULTI-DISCIPLINARY"
+    num: "04",
+    title: "Cross-Domain Engineering Versatility",
+    desc: "Moving fluidly between frontend React state, backend database optimization, and OpenCV hardware pipelines enables fast troubleshooting across full stacks.",
+    motto: "End-to-End Ownership"
   }
 ];
 

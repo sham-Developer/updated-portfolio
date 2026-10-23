@@ -1,9 +1,8 @@
 import React from "react";
 import { ArrowUp } from "lucide-react";
 import { soundManager } from "../utils/sound";
-import { personalInfo } from "../data/portfolioData";
 
-export default function Footer({ onOpenTerminal, onOpenResume }) {
+export default function Footer({ onOpenResume }) {
   const scrollToTop = () => {
     soundManager.playClick();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -20,7 +19,7 @@ export default function Footer({ onOpenTerminal, onOpenResume }) {
               <span className="footer-name-title">SHAM R</span>
             </div>
             <p className="footer-sub-tagline">
-              Software Developer & Team Leader. Designed around systems. Built for scale.
+              Software Developer & Team Leader based in Coimbatore, India.
             </p>
           </div>
 
@@ -61,7 +60,7 @@ export default function Footer({ onOpenTerminal, onOpenResume }) {
 
           {/* Copyright notice */}
           <div className="footer-copyright-text">
-            © {new Date().getFullYear()} SHAM R. ALL RIGHTS RESERVED.
+            © 2026 SHAM R. ALL RIGHTS RESERVED.
           </div>
         </div>
       </div>

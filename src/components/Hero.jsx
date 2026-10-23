@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowDownRight, ArrowUpRight, Download, Terminal, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Download, Terminal, ChevronDown } from "lucide-react";
 import { Github, Linkedin } from "./Icons";
 import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
@@ -31,12 +31,12 @@ export default function Hero({ onOpenTerminal, onOpenResume }) {
 
           {/* Monolithic Display Headline */}
           <h1 className="hero-display-headline">
-            Building systems that stand the <span className="serif-accent">test of scale</span>.
+            I lead engineering pods and build systems that <span className="serif-accent">never break in production</span>.
           </h1>
 
           {/* Narrative Sub-description */}
           <p className="hero-narrative-lead">
-            Software Developer and Team Leader architecting resilient full-stack systems, native Android enterprise solutions, interactive 3D WebGL platforms, and real-time computer vision pipelines.
+            Software Developer and Team Leader at Fisto Tech. Leading 5+ developers shipping high-throughput web platforms, offline-first Android apps, and sub-millisecond computer vision inspection pipelines.
           </p>
 
           {/* CTA Action Row */}
@@ -46,7 +46,8 @@ export default function Hero({ onOpenTerminal, onOpenResume }) {
               className="btn-gold-primary"
               onClick={() => soundManager.playClick()}
             >
-              <span>EXPLORE SELECTED WORK ↘</span>
+              <span>Explore Selected Work</span>
+              <span className="btn-inner-arrow">↓</span>
             </a>
 
             <a
@@ -54,7 +55,8 @@ export default function Hero({ onOpenTerminal, onOpenResume }) {
               className="btn-gold-ghost"
               onClick={() => soundManager.playClick()}
             >
-              <span>LET'S CONNECT ↗</span>
+              <span>Direct Inquiry</span>
+              <span className="btn-inner-arrow">→</span>
             </a>
 
             <button

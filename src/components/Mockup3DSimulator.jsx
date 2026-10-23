@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Sliders, RotateCw, Layers, Box } from "lucide-react";
+import { RotateCw, Layers, Box } from "lucide-react";
 import { soundManager } from "../utils/sound";
 
 const PATTERNS = [

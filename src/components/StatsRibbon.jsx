@@ -4,27 +4,27 @@ import { soundManager } from "../utils/sound";
 const statsList = [
   {
     num: "15+",
-    index: "// 01",
-    label: "CLIENT PROJECTS DELIVERED",
-    subtext: "Across multiple business domains"
+    index: "01",
+    label: "Production Systems Delivered",
+    subtext: "Web platforms, native Android & OpenCV rigs"
   },
   {
     num: "8+",
-    index: "// 02",
-    label: "PRODUCTION DEPLOYMENTS",
-    subtext: "Live high-traffic environments"
+    index: "02",
+    label: "Live Cloud Deployments",
+    subtext: "CI/CD automated release pipelines"
   },
   {
     num: "5+",
-    index: "// 03",
-    label: "ENGINEERS LED IN PODS",
-    subtext: "Agile sprints, code reviews & CI/CD"
+    index: "03",
+    label: "Engineers Mentored in Pods",
+    subtext: "Sprint orchestration & daily code review"
   },
   {
-    num: "Nearly 3",
-    index: "// 04",
-    label: "YEARS OF ARCHITECTURAL CRAFT",
-    subtext: "Full-Stack, Android & Vision Systems"
+    num: "~3 yrs",
+    index: "04",
+    label: "Hands-on Full-Stack Tenure",
+    subtext: "From Junior Engineer to Team Leader at Fisto Tech"
   }
 ];
 

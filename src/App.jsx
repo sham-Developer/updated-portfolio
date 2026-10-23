@@ -14,12 +14,14 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import TerminalDrawer from "./components/TerminalDrawer";
 import ResumeModal from "./components/ResumeModal";
+import ProjectModal from "./components/ProjectModal";
 import { soundManager } from "./utils/sound";
 import "./App.css";
 
 export default function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   // Global scroll progress & Intersection Observer for on-scroll reveals
@@ -102,7 +104,7 @@ export default function App() {
         <Competencies />
 
         {/* 05. FEATURED PROJECTS (Alternating Warm Ivory & Obsidian) */}
-        <Projects />
+        <Projects onSelectProject={(proj) => setSelectedProject(proj)} />
 
         {/* 06. PROFESSIONAL EXPERIENCE TIMELINE (Obsidian Black: #101010) */}
         <Experience />
@@ -122,7 +124,6 @@ export default function App() {
 
       {/* 11. FOOTER (Warm Ivory: #F5F2EB) */}
       <Footer
-        onOpenTerminal={() => setIsTerminalOpen(true)}
         onOpenResume={() => setIsResumeOpen(true)}
       />
 
@@ -136,6 +137,12 @@ export default function App() {
       <ResumeModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}
+      />
+
+      {/* Interactive Project Technical Architecture & Live Simulator Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
       />
     </div>
   );

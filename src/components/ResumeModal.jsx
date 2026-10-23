@@ -1,10 +1,27 @@
-import React from "react";
-import { X, Printer, Phone, Mail, MapPin, ExternalLink, Briefcase, GraduationCap, Code } from "lucide-react";
+import React, { useEffect } from "react";
+import { X, Printer, Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 import confetti from "canvas-confetti";
 import { soundManager } from "../utils/sound";
-import { personalInfo, experience, education, technicalSkills, projects } from "../data/portfolioData";
+import { personalInfo, experience, education, projects } from "../data/portfolioData";
 
 export default function ResumeModal({ isOpen, onClose }) {
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = originalOverflow || "";
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleDownload = () => {

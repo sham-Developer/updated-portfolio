@@ -1,49 +1,41 @@
-import React, { useEffect, useRef } from "react";
-import { Play, Pause, AlertTriangle, CheckCircle2, XCircle, Eye, ShieldAlert, Cpu } from "lucide-react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { Play, Pause, AlertTriangle, CheckCircle2, XCircle, Eye, Cpu } from "lucide-react";
 import { soundManager } from "../utils/sound";
 
 export default function WheelInspectionSimulator() {
   const [isScanning, setIsScanning] = useState(true);
   const [defectMode, setDefectMode] = useState("mixed");
-  const [fps, setFps] = useState(60);
-  const [latency, setLatency] = useState(14.8);
+  const [fps] = useState(60);
+  const [latency] = useState(14.8);
   const [selectedGap, setSelectedGap] = useState(1);
   const canvasRef = useRef(null);
   const angleRef = useRef(0);
 
-  const [gaps, setGaps] = useState([
-    { id: 1, status: "clear", score: 0.04, label: "Gap #1: Clean Rim" },
-    { id: 2, status: "obstructed", score: 0.89, label: "Gap #2: Dust Blockage" },
-    { id: 3, status: "partial", score: 0.42, label: "Gap #3: Edge Obstruction" },
-    { id: 4, status: "clear", score: 0.06, label: "Gap #4: Clean Rim" },
-    { id: 5, status: "clear", score: 0.02, label: "Gap #5: Clean Rim" }
-  ]);
-
-  useEffect(() => {
+  const gaps = useMemo(() => {
     if (defectMode === "clear") {
-      setGaps([
+      return [
         { id: 1, status: "clear", score: 0.02, label: "Gap #1: Pass" },
         { id: 2, status: "clear", score: 0.05, label: "Gap #2: Pass" },
         { id: 3, status: "clear", score: 0.03, label: "Gap #3: Pass" },
         { id: 4, status: "clear", score: 0.04, label: "Gap #4: Pass" },
         { id: 5, status: "clear", score: 0.02, label: "Gap #5: Pass" }
-      ]);
+      ];
     } else if (defectMode === "defect") {
-      setGaps([
+      return [
         { id: 1, status: "obstructed", score: 0.94, label: "Gap #1: Heavy Debris" },
         { id: 2, status: "obstructed", score: 0.88, label: "Gap #2: Metallic Burr" },
         { id: 3, status: "partial", score: 0.61, label: "Gap #3: Partial Residue" },
         { id: 4, status: "obstructed", score: 0.82, label: "Gap #4: Surface Defect" },
         { id: 5, status: "partial", score: 0.45, label: "Gap #5: Spoke Burr" }
-      ]);
+      ];
     } else {
-      setGaps([
+      return [
         { id: 1, status: "clear", score: 0.04, label: "Gap #1: Pass" },
         { id: 2, status: "obstructed", score: 0.89, label: "Gap #2: Dust Defect" },
         { id: 3, status: "partial", score: 0.42, label: "Gap #3: Margin Dust" },
         { id: 4, status: "clear", score: 0.06, label: "Gap #4: Pass" },
         { id: 5, status: "clear", score: 0.03, label: "Gap #5: Pass" }
-      ]);
+      ];
     }
   }, [defectMode]);
 
